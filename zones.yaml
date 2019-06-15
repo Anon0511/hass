@@ -1,0 +1,17 @@
+- name: Arbeit Anon
+  latitude: !secret anon_latitude
+  longitude: !secret anon_longitude
+  radius: 50
+  icon: mdi:onedrive
+
+- name: Arbeit Avo
+  latitude: !secret avo_latitude
+  longitude: !secret avo_longitude
+  radius: 50
+  icon: mdi:coffee
+
+- name: Home
+  latitude: !secret latitude
+  longitude: !secret longitude
+  radius: 50
+  icon: mdi:account-multiple

@@ -1,0 +1,26 @@
+- alias: TV Stop wenn Vacuum läuft
+  trigger:
+    platform: state
+    entity_id: vacuum.roborock
+    to: 'cleaning'
+  condition:
+    - condition: state
+      entity_id: media_player.nvidia_shield
+      state: 'playing'
+  action:
+    - service: media_player.media_stop
+      entity_id: media_player.nvidia_shield
+
+- alias: TV Start wenn Vacuum fertig
+  trigger:
+    platform: state
+    entity_id: vacuum.roborock
+    to: 'finished'
+  condition:
+    - condition: state
+      entity_id: media_player.nvidia_shield
+      state: 'paused'
+  action:
+    - service: media_player.media_play
+      entity_id: media_player.nvidia_shield
+

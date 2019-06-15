@@ -1,0 +1,14 @@
+base_url: !secret base_url
+trusted_proxies:
+  - 172.19.0.1
+  - 172.19.0.2
+  - 172.19.0.3
+  - 172.19.0.4
+  - 172.19.0.5
+  - 172.19.0.6
+  - 172.19.0.7
+  - 172.19.0.8
+  - 172.19.0.9
+use_x_forwarded_for: true
+ip_ban_enabled: true
+login_attempts_threshold: 5

@@ -1,0 +1,92 @@
+- alias: Lampen Wohnzimmer ausschalten wenn hell
+  trigger:
+    platform: time_pattern
+    minutes: '/1'
+  condition:
+    - condition: state
+      entity_id: group.family
+      state: 'home'
+    - condition: state
+      entity_id: switch.bett_led
+      state: 'off'
+    - condition: time
+      after: '10:00:00'
+      before: '22:00:00'
+    - condition: numeric_state
+      entity_id: sensor.airpurifier_illuminance
+      above: 145
+  action:
+    service: light.turn_off
+    entity_id: group.wohnzimmer
+
+- alias: Lampen Wohnzimmer einschalten dunkel TV aus
+  trigger:
+    - platform: time_pattern
+      minutes: '/1'
+  condition:
+    - condition: state
+      entity_id: group.family
+      state: 'home'
+    - condition: state
+      entity_id: switch.bett_led
+      state: 'off'
+    - condition: time
+      after: '10:00:00'
+      before: '22:00:00'
+    - condition: numeric_state
+      entity_id: sensor.airpurifier_illuminance
+      below: 50
+    - condition: state
+      entity_id: media_player.lg_oled
+      state: 'off'
+  action:
+    service: light.turn_on
+    entity_id: group.wohnzimmer
+
+- alias: Lampe Wohnzimmer Groß einschalten dunkel TV an
+  trigger:
+    - platform: time_pattern
+      minutes: '/1'
+  condition:
+    - condition: state
+      entity_id: group.family
+      state: 'home'
+    - condition: state
+      entity_id: switch.bett_led
+      state: 'off'
+    - condition: time
+      after: '10:00:00'
+      before: '22:00:00'
+    - condition: numeric_state
+      entity_id: sensor.airpurifier_illuminance
+      below: 50
+    - condition: state
+      entity_id: media_player.lg_oled
+      state: 'on'
+  action:
+    service: light.turn_on
+    entity_id: light.wohnzimmer_gross
+
+- alias: Lampe Wohnzimmer Eingang einschalten
+  trigger:
+    platform: time_pattern
+    minutes: '/1'
+  condition:
+    - condition: state
+      entity_id: group.family
+      state: 'home'
+    - condition: state
+      entity_id: media_player.lg_oled
+      state: 'off'
+    - condition: state
+      entity_id: switch.bett_led
+      state: 'off'
+    - condition: state
+      entity_id: sun.sun
+      state: 'below_horizon'
+    - condition: time
+      after: '20:00:00'
+      before: '22:00:00'
+  action:
+    service: light.turn_on
+    entity_id: light.wohnzimmer_klein

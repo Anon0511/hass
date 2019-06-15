@@ -1,0 +1,23 @@
+#Change for night
+- id: Nighttheme
+  alias: 'Set default theme for the night'
+  initial_state: true
+  trigger:
+    - platform: time
+      at: '21:00:00'
+  action:
+    - service: frontend.set_theme
+      data:
+        name: Dark - Gray
+
+#Change for day
+- id: Daytheme
+  alias: "Set default theme for day"
+  initial_state: true
+  trigger:
+    - platform: time
+      at: '9:00:00'
+  action:
+    - service: frontend.set_theme
+      data:
+        name: Dark - Red

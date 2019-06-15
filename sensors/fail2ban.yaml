@@ -1,0 +1,4 @@
+- platform: fail2ban
+  jails:
+    - ha
+  file_path: /config/bans/fail2ban.log

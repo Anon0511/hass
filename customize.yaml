@@ -1,0 +1,34 @@
+group.all_automations:
+  hidden: false
+  friendly_name: Automation
+group.all_scripts:
+  hidden: false
+  friendly_name: Scripts
+group.all_lights:
+  hidden: false
+  friendly_name: Lichter
+group.all_devices:
+  hidden: false
+  friendly_name: Alle Geräte
+group.all_fans:
+  hidden: false
+  friendly_name: Luft
+weather.dark_sky:
+  friendly_name: Wetter
+group.all_sensors:
+  hidden: false
+  friendly_name: Sensoren
+group.family:
+  friendly_name: Familie
+group.schlafzimmer:
+  friendly_name: Schlafzimmer
+group.wohnzimmer:
+  friendly_name: Wohnzimmer
+group.all_vacuum_cleaners:
+  friendly_name: Roborock
+  hidden: false
+group.all_switches:
+  hidden: false
+  friendly_name: Switches
+light.schlafzimmer:
+  friendly_name: Bett LED

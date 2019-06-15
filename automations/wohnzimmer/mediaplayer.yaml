@@ -1,0 +1,11 @@
+- alias: Shield starting
+  trigger:
+    - platform: state
+      entity_id: media_player.nvidia_shield
+      to: 'paused'
+      from: 'off'
+  action:
+    - service: androidtv.adb_command
+      data:
+        entity_id: media_player.nvidia_shield
+        command: "HOME"

@@ -1,0 +1,55 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret elevation
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: !secret time_zone
+  # Customization file
+  customize: !include customize.yaml
+  #  auth_providers:
+  #    - type: legacy_api_password
+  #      api_password: !secret http_password
+
+api:
+default_config:
+mobile_app:
+updater:
+system_health:
+shell_command: !include shell_commands.yaml
+circadian_lighting: !include circadian_lighting.yaml
+http: !include http.yaml
+discovery: !include discovery.yaml
+logger: !include logger.yaml
+recorder: !include recorder.yaml
+telegram_bot: !include telegram_bot.yaml
+notify: !include notify.yaml
+weather: !include weather.yaml
+#zha: !include zha.yaml
+tts: !include tts.yaml
+alexa: !include alexa.yaml
+frontend: !include frontend.yaml
+vacuum: !include vacuum.yaml
+zone: !include zones.yaml
+mqtt: !include mqtt.yaml
+speedtestdotnet: !include speedtest.yaml
+#xiaomi_aqara: !include xiaomi_gateway.yaml
+input_select: !include_dir_named input_select/
+input_number: !include_dir_named input_number/
+fan: !include_dir_merge_list fans/
+media_player: !include_dir_merge_list mediaplayer/
+sensor: !include_dir_merge_list sensors/
+group: !include_dir_merge_named groups/
+automation: !include_dir_merge_list automations/
+scene: !include_dir_merge_list scenes/
+script: !include_dir_named scripts/
+switch: !include_dir_merge_list switches/
+yeelight: !include_dir_merge_named yeelights/
+device_tracker: !include_dir_merge_list devices/
+wake_on_lan: !include_dir_merge_list wol/
+panel_custom: !include_dir_merge_list panel_custom/

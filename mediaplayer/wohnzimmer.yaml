@@ -1,0 +1,30 @@
+- platform: androidtv
+  name: Nvidia Shield
+  device_class: androidtv
+  host: 192.168.178.21
+  adb_server_ip: 127.0.0.1
+  adbkey: "/config/adbkey"
+  apps:
+    "com.netflix.ninja": "Netflix"
+    "com.nvidia.tegrazone3": "NVIDIA Games"
+    "com.google.android.tvlauncher": "Launcher"
+    "com.amazon.amazonvideo.livingroom": "Amazon Prime"
+    "com.google.android.youtube.tv": "Youtube"
+    "com.plexapp.android": "Plex"
+    "com.spotify.tv.android": "Spotify"
+    "tv.twitch.android.app": "Twitch"
+
+- platform: webostv
+  host: 192.168.178.32
+  name: LG OLED
+  filename: webostv.conf
+  timeout: 5
+  turn_on_action:
+    service: wake_on_lan.send_magic_packet
+    data:
+      mac: !secret lg_oled_mac
+  customize:
+    sources:
+      - hdmi1
+      - livetv
+      - netflix

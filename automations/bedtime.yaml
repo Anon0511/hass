@@ -1,0 +1,36 @@
+- alias: Schlafenszeit
+  trigger:
+    platform: state
+    entity_id: switch.bett_led
+    to: 'on'
+    for:
+      minutes: 2
+  condition:
+    - condition: state
+      entity_id: group.family
+      state: 'home'
+    - condition: time
+      after: '20:00:00'
+      before: '00:00:00'
+  action:
+    - service: light.turn_off
+      entity_id: group.wohnzimmer
+    - service: media_player.turn_off
+      entity_id: media_player.lg_oled
+    - service: media_player.turn_on
+      entity_id: media_player.firetv
+
+- alias: Lampe Schlafzimmer Bett ausschalten
+  trigger:
+    platform: time
+    at: '22:45:00'
+  condition:
+    - condition: state
+      entity_id: group.family
+      state: 'home'
+    - condition: state
+      entity_id: switch.bett_led
+      state: 'on'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.bett_led

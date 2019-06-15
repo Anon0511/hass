@@ -1,0 +1,21 @@
+- alias: Avo Home
+  trigger:
+    platform: state
+    entity_id: device_tracker.mi9_miphone
+    from: 'not_home'
+    to: 'home'
+  action:
+    service: notify.notify_telegram_anon
+    data:
+      message: 'Avo ist Zuhause'
+
+- alias: Avo not Home
+  trigger:
+    platform: state
+    entity_id: device_tracker.mi9_miphone
+    from: 'home'
+    to: 'not_home'
+  action:
+    service: notify.notify_telegram_anon
+    data:
+      message: 'Avo geht'

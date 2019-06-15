@@ -1,0 +1,21 @@
+default_view:
+  view: true
+  icon: mdi:home
+  entities:
+    - sun.sun
+    - weather.darksky
+    - group.family
+    - group.wohnzimmer
+    - group.schlafzimmer
+#    - group.flur
+#    - group.kitchen
+    - group.speedtest
+    - group.spotify
+    - group.system
+    - group.all_lights
+    - group.all_fans
+    - group.all_vacuum_cleaners
+    - group.all_devices
+    - group.all_automations
+    - group.all_switches
+    - group.all_scripts

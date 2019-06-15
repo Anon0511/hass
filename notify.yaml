@@ -1,0 +1,7 @@
+- name: Notify Telegram Anon
+  platform: telegram
+  chat_id: !secret anon_chat_id
+
+- name: Notify Telegram Avo
+  platform: telegram
+  chat_id: !secret avo_chat_id

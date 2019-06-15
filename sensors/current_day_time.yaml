@@ -1,0 +1,6 @@
+- platform: template
+  sensors:
+    current_day_time:
+      friendly_name: Date and Time
+      entity_id: sensor.time_date
+      value_template: '{{ now().strftime("%Y-%m-%d %H:%M:%S") }}'

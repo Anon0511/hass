@@ -1,0 +1,13 @@
+- platform: androidtv
+  name: FireTV
+  device_class: firetv
+  host: 192.168.178.27
+  adb_server_ip: 127.0.0.1
+  adbkey: "/config/adbkey"
+  apps:
+    "com.amazon.tv.launcher": "Launcher"
+    "com.netflix.ninja": "Netflix"
+    "com.google.android.youtube.tv": "Youtube"
+    "com.plexapp.android": "Plex"
+  turn_on_command: "input keyevent 3"
+  turn_off_command: "input keyevent 223"

@@ -1,0 +1,6 @@
+#  kitchen:
+#    name: Küche
+#    icon: mdi:coffee
+#    view: false
+#    entities:
+#      - light.kueche

@@ -1,0 +1,46 @@
+smart_home:
+  filter:
+    include_entities:
+      - vacuum.roborock
+    include_domains:
+      - fan
+      - light
+      - media_player
+      - script
+      - sensor
+      - switch
+  entity_config:  
+    fan.xiaomi_miio_device:
+      name: Luftreiniger
+      display_categories: OTHER
+    media_player.firetv:
+      name: FireTV
+      display_categories: TV
+    media_player.lg_oled:
+      name: TV
+      display_categories: TV
+    media_player.nvidia_shield:
+      name: Shield
+      display_categories: TV
+    vacuum.roborock:
+      name: Roborock
+      display_categories: OTHER
+    switch.bett_led:
+      name: Bett Lampe
+      display_categories: LIGHT
+    sensor.airpurifier_aqi:
+      name: Feinstaub
+    sensor.airpurifier_humidity:
+      name: Wohnzimmer Luftfeuchtigkeit
+    sensor.airpurifier_temp:
+      name: Wohnzimmer Temperatur
+    sensor.schlafzimmer_humidity:
+      name: Schlafzimmer Luftfeuchtigkeit
+    sensor.schlafzimmer_humidity_2:
+      name: Schlafzimmer Temperatur
+    sensor.speedtest_download:
+      name: Download
+    sensor.speedtest_ping:
+      name: Ping
+    sensor.speedtest_upload:
+      name: Upload

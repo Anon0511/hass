@@ -1,0 +1,4 @@
+- platform: xiaomi_miio
+  name: airpurifier
+  host: 192.168.178.22
+  token: !secret airpurifier_token

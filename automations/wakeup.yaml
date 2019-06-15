@@ -1,0 +1,28 @@
+- alias: Aufwachen
+  trigger:
+    platform: time_pattern
+    minutes: '/1'
+  condition:
+    - condition: state
+      entity_id: group.family
+      state: 'home'
+    - condition: template
+      value_template: "{{ states('sensor.current_day_time')[:-3] == states('sensor.huawei_mate_20_pro_next_alarm')[:-3] }}"
+  action:
+    - service: switch.turn_on
+      entity_id: switch.bett_led
+    - service: light.turn_on
+      entity_id: group.wohnzimmer
+    - service: media_player.turn_on
+      entity_id: media_player.nvidia_shield
+    - service: media_player.select_source
+      entity_id: media_player.spotify
+      data:
+        source: Shield
+    - service: media_player.play_media
+      entity_id: media_player.spotify
+      data:
+        media_content_type: playlist
+        media_content_id: spotify:user:spotify:playlist:37i9dQZF1DWSkkUxEhrBdF
+    - service: media_player.media_play
+      entity_id: media_player.spotify
