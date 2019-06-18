@@ -16,40 +16,47 @@ homeassistant:
   #    - type: legacy_api_password
   #      api_password: !secret http_password
 
-api:
-default_config:
-mobile_app:
-updater:
-system_health:
-shell_command: !include shell_commands.yaml
-circadian_lighting: !include circadian_lighting.yaml
-http: !include http.yaml
-discovery: !include discovery.yaml
-logger: !include logger.yaml
-recorder: !include recorder.yaml
-telegram_bot: !include telegram_bot.yaml
-notify: !include notify.yaml
-weather: !include weather.yaml
-#zha: !include zha.yaml
-tts: !include tts.yaml
 alexa: !include alexa.yaml
-frontend: !include frontend.yaml
-vacuum: !include vacuum.yaml
-zone: !include zones.yaml
-mqtt: !include mqtt.yaml
-speedtestdotnet: !include speedtest.yaml
-#xiaomi_aqara: !include xiaomi_gateway.yaml
-input_select: !include_dir_named input_select/
-input_number: !include_dir_named input_number/
-fan: !include_dir_merge_list fans/
-media_player: !include_dir_merge_list mediaplayer/
-sensor: !include_dir_merge_list sensors/
-group: !include_dir_merge_named groups/
+api:
 automation: !include_dir_merge_list automations/
+circadian_lighting: !include circadian_lighting.yaml
+default_config:
+device_tracker: !include_dir_merge_list devices/
+discovery: !include discovery.yaml
+fan: !include_dir_merge_list fans/
+frontend: !include frontend.yaml
+group: !include_dir_merge_named groups/
+hacs: !include hacs.yaml
+http: !include http.yaml
+history:
+input_boolean: !include_dir_named input_boolean/
+input_number: !include_dir_named input_number/
+input_select: !include_dir_named input_select/
+logbook:
+logger: !include logger.yaml
+map:
+media_player: !include_dir_merge_list mediaplayer/
+mobile_app:
+mqtt: !include mqtt.yaml
+notify: !include notify.yaml
+panel_custom: !include_dir_merge_list panel_custom/
+person:
+recorder: !include recorder.yaml
 scene: !include_dir_merge_list scenes/
 script: !include_dir_named scripts/
+sensor: !include_dir_merge_list sensors/
+shell_command: !include shell_commands.yaml
+speedtestdotnet: !include speedtest.yaml
+sun:
 switch: !include_dir_merge_list switches/
-yeelight: !include_dir_merge_named yeelights/
-device_tracker: !include_dir_merge_list devices/
+system_health:
+telegram_bot: !include telegram_bot.yaml
+tts: !include tts.yaml
+updater:
+vacuum: !include vacuum.yaml
 wake_on_lan: !include_dir_merge_list wol/
-panel_custom: !include_dir_merge_list panel_custom/
+weather: !include weather.yaml
+#xiaomi_aqara: !include xiaomi_gateway.yaml
+yeelight: !include_dir_merge_named yeelights/
+#zha: !include zha.yaml
+zone: !include zones.yaml

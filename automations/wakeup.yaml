@@ -9,12 +9,12 @@
     - condition: template
       value_template: "{{ states('sensor.current_day_time')[:-3] == states('sensor.huawei_mate_20_pro_next_alarm')[:-3] }}"
   action:
-    - service: switch.turn_on
-      entity_id: switch.bett_led
     - service: light.turn_on
-      entity_id: group.wohnzimmer
+      entity_id: group.all_lights
     - service: media_player.turn_on
       entity_id: media_player.nvidia_shield
+    - delay: '00:00:10'
+    - service: script.shield_spotify_start
     - service: media_player.select_source
       entity_id: media_player.spotify
       data:
