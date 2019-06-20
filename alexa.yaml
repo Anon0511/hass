@@ -13,6 +13,10 @@ smart_home:
     fan.xiaomi_miio_device:
       name: Luftreiniger
       display_categories: OTHER
+    input_boolean.guests:
+      name: Gast Modus
+    input_boolean.partyguests:
+      name: Party Gast Modus
     media_player.firetv:
       name: FireTV
       display_categories: TV

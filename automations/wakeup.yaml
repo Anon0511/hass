@@ -14,7 +14,7 @@
     - service: media_player.turn_on
       entity_id: media_player.nvidia_shield
     - delay: '00:00:10'
-    - service: script.shield_spotify_start
+    - service: script.shield_spotify
     - service: media_player.select_source
       entity_id: media_player.spotify
       data:
