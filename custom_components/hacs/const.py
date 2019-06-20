@@ -1,5 +1,5 @@
 """Constants for HACS"""
-VERSION = "0.7.0"
+VERSION = "0.8.1"
 NAME_LONG = "HACS (Home Assistant Community Store)"
 NAME_SHORT = "HACS"
 STORAGE_VERSION = "1"
@@ -85,6 +85,8 @@ DEFAULT_REPOSITORIES = {
         "finity69x2/fan-control-entity-row",
         "thomasloven/lovelace-card-mod",
         "thomasloven/lovelace-markdown-mod",
+        "thomasloven/lovelace-slider-entity-row",
         "isabellaalstrom/krisinfo-card",
+        "tcarlsen/lovelace-light-with-profiles",
     ],
 }

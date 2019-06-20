@@ -1,4 +1,4 @@
-##Home Assistant V0.94.3
+##Home Assistant V0.94.4
 
 So this is my config as of now, most likely updated from time to time.
 
@@ -39,7 +39,7 @@ Also some things still throw errors which may or may not affect the function.
 
 External reachable! I use the Fail2Ban from Host (protecting SSH) to also read the HASS Logs. 
 
-While the Letsencrypt Container ships with a Fail2Ban it is just dirty to make the HASS Container logs available to letsencrypt, using .htpasswd files within the letsencrypt Container will solve the problem also, you just have to login twice.
+Using .htpasswd files within the letsencrypt Container will solve the problem also, you just have to login twice.
 
 Official SSL certificates for sub-sub-domains like hass.subdomain.duckdns.org thx to Linuxserver letsencrypt.
 
@@ -87,3 +87,4 @@ Don't forget Duplicati to make regular Backups, keeping a few versions, pushing 
   - Better automations
   - Scripts
   - Extend Alexa functionality
+  - ~~HACS~~
