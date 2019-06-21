@@ -1,1 +1,1 @@
-turn_off: 'ssh -i /config/id_rsa anon@anonpc "shutdown /s /t 00 /f"'
+turn_off: 'ssh -o StrictHostKeyChecking=no -i /config/id_rsa anon@anonpc "shutdown /s /t 00 /f"'
