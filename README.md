@@ -64,6 +64,7 @@ Don't forget Duplicati to make regular Backups, keeping a few versions, pushing 
   - Xiaomi Gateway *(NOT WORKING)*
   - Xiaomi Humidity Sensor
   - Xiaomi Button
+  - 3 Xiaomi Door- / Window-Sensor
   - 2 Ariela Mobile App
 
 **Need:**

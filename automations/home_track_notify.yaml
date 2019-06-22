@@ -1,7 +1,7 @@
 - alias: Avo Home
   trigger:
     platform: state
-    entity_id: device_tracker.mi9_miphone
+    entity_id: person.avo
     from: 'not_home'
     to: 'home'
   action:
@@ -12,10 +12,27 @@
 - alias: Avo not Home
   trigger:
     platform: state
-    entity_id: device_tracker.mi9_miphone
+    entity_id: person.avo
     from: 'home'
     to: 'not_home'
   action:
     service: notify.notify_telegram_anon
     data:
       message: 'Avo geht'
+
+- alias: 'Door opened'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.entrydoor
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: person.avo
+      state: home
+    - condition: state
+      entity_id: person.anon
+      state: not_home
+  action:
+    service: notify.notify_telegram_anon
+    data:
+      message: 'Tür geöffnet'

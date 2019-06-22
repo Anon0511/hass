@@ -1,17 +1,14 @@
 - alias: 'Alarm niemand Zuhause'
   trigger:
     - platform: state
-      entity_id: sensor.pir1
-      to: 'active'
+      entity_id: binary_sensor.entrydoor
+      to: 'on'
     - platform: state
-      entity_id: sensor.pir2
-      to: 'active'
+      entity_id: binary_sensor.balconywindow
+      to: 'on'
     - platform: state
-      entity_id: sensor.door
-      to: 'open'
-    - platform: state
-      entity_id: sensor.window
-      to: 'open'
+      entity_id: binary_sensor.balconydoor
+      to: 'on'
   condition:
     - condition: state
       entity_id: alarm_control_panel.alarm
