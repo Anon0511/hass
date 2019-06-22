@@ -9,6 +9,9 @@
     - condition: state
       entity_id: group.family
       state: 'home'
+    - condition: state
+      entity_id: switch.guests
+      state: 'off'
     - condition: time
       after: '20:00:00'
       before: '00:00:00'
@@ -28,6 +31,9 @@
     - condition: state
       entity_id: group.family
       state: 'home'
+    - condition: state
+      entity_id: switch.guests
+      state: 'off'
     - condition: state
       entity_id: switch.bett_led
       state: 'on'

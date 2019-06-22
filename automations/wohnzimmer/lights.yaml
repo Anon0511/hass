@@ -40,8 +40,8 @@
       entity_id: media_player.lg_oled
       state: 'off'
   action:
-    service: light.turn_on
-    entity_id: group.wohnzimmer
+    service: scene.turn_on
+    entity_id: scene.wohnzimmer_normal
 
 - alias: Lampe Wohnzimmer Groß einschalten dunkel TV an
   trigger:
@@ -64,8 +64,8 @@
       entity_id: media_player.lg_oled
       state: 'on'
   action:
-    service: light.turn_on
-    entity_id: light.wohnzimmer_gross
+    service: scene.turn_on
+    entity_id: scene.wohnzimmer_dim
 
 - alias: Lampe Wohnzimmer Eingang einschalten
   trigger:

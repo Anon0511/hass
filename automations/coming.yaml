@@ -1,0 +1,12 @@
+- alias: "Wieder da"
+  id: home
+  trigger:
+    - platform: state
+      entity_id: group.family
+      to: 'home'
+    - platform: state
+      entity_id: group.guests
+      to: 'home'
+  action:
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.alarm

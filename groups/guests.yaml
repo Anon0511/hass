@@ -1,0 +1,6 @@
+guests:
+  name: Gäste
+  icon: mdi:account-box
+  view: false
+#  entities:
+#    - person

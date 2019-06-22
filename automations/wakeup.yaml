@@ -6,6 +6,9 @@
     - condition: state
       entity_id: group.family
       state: 'home'
+    - condition: state
+      entity_id: switch.guests
+      state: 'off'
     - condition: template
       value_template: "{{ states('sensor.current_day_time')[:-3] == states('sensor.huawei_mate_20_pro_next_alarm')[:-3] }}"
   action:

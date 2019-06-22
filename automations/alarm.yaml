@@ -1,0 +1,36 @@
+- alias: 'Alarm niemand Zuhause'
+  trigger:
+    - platform: state
+      entity_id: sensor.pir1
+      to: 'active'
+    - platform: state
+      entity_id: sensor.pir2
+      to: 'active'
+    - platform: state
+      entity_id: sensor.door
+      to: 'open'
+    - platform: state
+      entity_id: sensor.window
+      to: 'open'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.alarm
+      state: armed_away
+  action:
+    - service: alarm_control_panel.alarm_trigger
+      entity_id: alarm_control_panel.alarm
+
+- alias: 'Send notification when alarm triggered'
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: 'triggered'
+  action:
+    - service: notify.notify_telegram_anon
+      data:
+        message: "ALARM!"
+    - service: notify.notify_telegram_avo
+      data:
+        message: "ALARM!"
+    - service: scene.turn_on
+      entity_id: scene.alarm

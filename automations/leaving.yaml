@@ -1,11 +1,16 @@
 - alias: "Niemand da"
   id: nobody_home
   trigger:
-    platform: state
-    entity_id: group.family
-    to: 'not_home'
-    for:
-      minutes: 5
+    - platform: state
+      entity_id: group.family
+      to: 'not_home'
+      for:
+        minutes: 5
+    - platform: state
+      entity_id: group.guests
+      to: 'not_home'
+      for:
+        minutes: 5
   action:
     - service: light.turn_off
       entity_id: group.all_lights
@@ -15,3 +20,5 @@
       entity_id: media_player.lg_oled
     - service: media_player.turn_off
       entity_id: media_player.firetv
+    - service: alarm_control_panel.alarm_arm_away
+      entity_id: alarm_control_panel.alarm

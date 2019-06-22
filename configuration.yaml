@@ -16,6 +16,7 @@ homeassistant:
   #    - type: legacy_api_password
   #      api_password: !secret http_password
 
+alarm_control_panel: !include alarm.yaml
 alexa: !include alexa.yaml
 api:
 automation: !include_dir_merge_list automations/
