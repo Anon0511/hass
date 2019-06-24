@@ -1,4 +1,4 @@
-- alias: Schlafenszeit
+- alias: Bedtime
   trigger:
     platform: state
     entity_id: switch.bett_led
@@ -23,7 +23,7 @@
     - service: media_player.turn_on
       entity_id: media_player.firetv
 
-- alias: Lampe Schlafzimmer Bett ausschalten
+- alias: Turn off bed LED
   trigger:
     platform: time
     at: '22:45:00'

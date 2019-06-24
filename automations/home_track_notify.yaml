@@ -4,6 +4,10 @@
     entity_id: person.avo
     from: 'not_home'
     to: 'home'
+  condition:
+    - condition: state
+      entity_id: person.anon
+      state: not_home
   action:
     service: notify.notify_telegram_anon
     data:
@@ -15,6 +19,10 @@
     entity_id: person.avo
     from: 'home'
     to: 'not_home'
+  condition:
+    - condition: state
+      entity_id: person.anon
+      state: not_home
   action:
     service: notify.notify_telegram_anon
     data:
@@ -26,9 +34,6 @@
       entity_id: binary_sensor.entrydoor
       to: 'on'
   condition:
-    - condition: state
-      entity_id: person.avo
-      state: home
     - condition: state
       entity_id: person.anon
       state: not_home

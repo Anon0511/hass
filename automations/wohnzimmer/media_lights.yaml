@@ -1,4 +1,4 @@
-- alias: Shield paused
+- alias: Lights Shield paused
   trigger:
     - platform: state
       entity_id: media_player.nvidia_shield
@@ -12,7 +12,7 @@
     service: scene.turn_on
     entity_id: scene.wohnzimmer_normal
 
-- alias: Shield playing
+- alias: Lights Shield playing
   trigger:
     - platform: state
       entity_id: media_player.nvidia_shield

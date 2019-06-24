@@ -1,4 +1,4 @@
-- alias: Aufwachen
+- alias: Wakeup
   trigger:
     platform: time_pattern
     minutes: '/1'

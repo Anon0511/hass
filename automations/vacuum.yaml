@@ -1,4 +1,4 @@
-- alias: TV Stop wenn Vacuum läuft
+- alias: TV pause for Vacuum
   trigger:
     platform: state
     entity_id: vacuum.roborock
@@ -11,7 +11,7 @@
     - service: media_player.media_stop
       entity_id: media_player.nvidia_shield
 
-- alias: TV Start wenn Vacuum fertig
+- alias: TV start after Vacuum
   trigger:
     platform: state
     entity_id: vacuum.roborock

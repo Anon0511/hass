@@ -1,4 +1,4 @@
-- alias: Lampen Wohnzimmer ausschalten wenn hell
+- alias: Lights turn off lights too bright
   trigger:
     platform: time_pattern
     minutes: '/1'
@@ -19,7 +19,7 @@
     service: light.turn_off
     entity_id: group.wohnzimmer
 
-- alias: Lampen Wohnzimmer einschalten dunkel TV aus
+- alias: Lights turn on too dark TV off
   trigger:
     - platform: time_pattern
       minutes: '/1'
@@ -43,7 +43,7 @@
     service: scene.turn_on
     entity_id: scene.wohnzimmer_normal
 
-- alias: Lampe Wohnzimmer Groß einschalten dunkel TV an
+- alias: Light turn on too dark TV on
   trigger:
     - platform: time_pattern
       minutes: '/1'
@@ -67,7 +67,7 @@
     service: scene.turn_on
     entity_id: scene.wohnzimmer_dim
 
-- alias: Lampe Wohnzimmer Eingang einschalten
+- alias: Turn on small lamp after 20h
   trigger:
     platform: time_pattern
     minutes: '/1'

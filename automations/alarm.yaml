@@ -1,4 +1,4 @@
-- alias: 'Alarm niemand Zuhause'
+- alias: Alarm nobody home
   trigger:
     - platform: state
       entity_id: binary_sensor.entrydoor
@@ -17,7 +17,7 @@
     - service: alarm_control_panel.alarm_trigger
       entity_id: alarm_control_panel.alarm
 
-- alias: 'Send notification when alarm triggered'
+- alias: Send notification when alarm triggered
   trigger:
     - platform: state
       entity_id: alarm_control_panel.alarm

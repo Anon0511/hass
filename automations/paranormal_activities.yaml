@@ -1,4 +1,4 @@
-- alias: TV an
+- alias: Cats doing shit
   trigger:
     platform: state
     entity_id: media_player.lg_oled
