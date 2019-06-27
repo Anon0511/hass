@@ -1,4 +1,4 @@
-##Home Assistant V0.94.4
+##Home Assistant V0.95.0
 
 So this is my config as of now, most likely updated from time to time.
 
@@ -30,7 +30,7 @@ Also some things still throw errors which may or may not affect the function.
   - linuxserver/letsencrypt:arm32v7-latest
   - linuxserver/duplicati:arm32v7-latest
   - linuxserver/duckdns:arm32v7-latest
-  - linuxserver/mariadb
+  - linuxserver/mariadb *(Removed for now)*
   - marthoc/deconz:armhf
   - nodered
 

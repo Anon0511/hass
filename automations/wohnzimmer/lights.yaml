@@ -14,7 +14,7 @@
       before: '22:00:00'
     - condition: numeric_state
       entity_id: sensor.airpurifier_illuminance
-      above: 150
+      above: 160
   action:
     service: light.turn_off
     entity_id: group.wohnzimmer
