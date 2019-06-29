@@ -10,14 +10,14 @@
       entity_id: switch.bett_led
       state: 'off'
     - condition: time
-      after: '10:00:00'
-      before: '22:00:00'
+      after: '10:00'
+      before: '22:00'
     - condition: numeric_state
       entity_id: sensor.airpurifier_illuminance
       above: 160
   action:
-    service: light.turn_off
-    entity_id: group.wohnzimmer
+    - service: light.turn_off
+      entity_id: group.wohnzimmer
 
 - alias: Lights turn on too dark TV off
   trigger:
@@ -31,8 +31,8 @@
       entity_id: switch.bett_led
       state: 'off'
     - condition: time
-      after: '10:00:00'
-      before: '22:00:00'
+      after: '10:00'
+      before: '21:00'
     - condition: numeric_state
       entity_id: sensor.airpurifier_illuminance
       below: 50
@@ -40,8 +40,8 @@
       entity_id: media_player.lg_oled
       state: 'off'
   action:
-    service: scene.turn_on
-    entity_id: scene.wohnzimmer_normal
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_normal
 
 - alias: Light turn on too dark TV on
   trigger:
@@ -55,8 +55,8 @@
       entity_id: switch.bett_led
       state: 'off'
     - condition: time
-      after: '10:00:00'
-      before: '22:00:00'
+      after: '10:00'
+      before: '21:00'
     - condition: numeric_state
       entity_id: sensor.airpurifier_illuminance
       below: 50
@@ -64,8 +64,8 @@
       entity_id: media_player.lg_oled
       state: 'on'
   action:
-    service: scene.turn_on
-    entity_id: scene.wohnzimmer_dim
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_dim
 
 - alias: Turn on small lamp after 20h
   trigger:
@@ -84,9 +84,9 @@
     - condition: state
       entity_id: sun.sun
       state: 'below_horizon'
-    - condition: time
-      after: '20:00:00'
-      before: '22:00:00'
+    - condition: state
+      entity_id: light.wohnzimmer_gross
+      state: 'on'
   action:
-    service: light.turn_on
-    entity_id: light.wohnzimmer_klein
+    - service: light.turn_on
+      entity_id: light.wohnzimmer_klein

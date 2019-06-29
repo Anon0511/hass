@@ -13,8 +13,8 @@
       entity_id: switch.guests
       state: 'off'
     - condition: time
-      after: '20:00:00'
-      before: '00:00:00'
+      after: '20:00'
+      before: '00:00'
   action:
     - service: light.turn_off
       entity_id: group.wohnzimmer
@@ -26,7 +26,7 @@
 - alias: Turn off bed LED
   trigger:
     platform: time
-    at: '22:45:00'
+    at: '22:45'
   condition:
     - condition: state
       entity_id: group.family
