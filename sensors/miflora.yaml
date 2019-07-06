@@ -1,0 +1,29 @@
+- platform: miflora
+  mac: !secret miflora_indoor
+  name: Indoor Plant
+  monitored_conditions:
+    - moisture
+    - light
+    - temperature
+    - conductivity
+    - battery
+
+- platform: miflora
+  mac: !secret miflora_outdoor_big
+  name: Outdoor Plant Big
+  monitored_conditions:
+    - moisture
+    - light
+    - temperature
+    - conductivity
+    - battery
+
+- platform: miflora
+  mac: !secret miflora_outdoor_small
+  name: Outdoor Plant Small
+  monitored_conditions:
+    - moisture
+    - light
+    - temperature
+    - conductivity
+    - battery

@@ -12,6 +12,7 @@ default_view:
     - group.speedtest
     - group.spotify
     - group.system
+    - group.plants
     - group.all_lights
     - group.all_fans
     - group.all_vacuum_cleaners

@@ -4,9 +4,9 @@
     platform: time_pattern
     minutes: '/5'
   condition:
-    - condition: state
-      entity_id: group.guests
-      state: 'not_home'
+#    - condition: state
+#      entity_id: group.guests
+#      state: 'not_home'
     - condition: state
       entity_id: group.family
       state: 'not_home'

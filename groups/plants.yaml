@@ -1,0 +1,19 @@
+plants:
+  name: Pflanzen
+  view: false
+  entities:
+    - sensor.indoor_plant_conductivity
+    - sensor.indoor_plant_light_intensity
+    - sensor.indoor_plant_moisture
+    - sensor.indoor_plant_temperature
+    - sensor.outdoor_plant_big_conductivity
+    - sensor.outdoor_plant_big_light_intensity
+    - sensor.outdoor_plant_big_moisture
+    - sensor.outdoor_plant_big_temperature
+    - sensor.outdoor_plant_small_conductivity
+    - sensor.outdoor_plant_small_light_intensity
+    - sensor.outdoor_plant_small_moisture
+    - sensor.outdoor_plant_small_temperature
+    - sensor.indoor_plant_battery
+    - sensor.outdoor_plant_big_battery
+    - sensor.outdoor_plant_small_battery
