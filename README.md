@@ -2,7 +2,7 @@
 
 So this is my config as of now, most likely updated from time to time.
 
-This costed me approx. 170 hours of work yet, using an RPI 2b which I had laying around since ages now because I never had a usecase here.
+This costed me approx. 180 hours of work yet, using an RPI 2b which I had laying around since ages now because I never had a usecase here.
 It is using the Raspbian Lite Image without a GUI, pure SSH, Docker Setup. 
 
 This config is still pretty small, not having much integrations, devices, automations and functions. Don't consider it as the holy grail since I'm pretty new. 
@@ -65,6 +65,7 @@ Don't forget Duplicati to make regular Backups, keeping a few versions, pushing 
   - Xiaomi Humidity Sensor
   - Xiaomi Button
   - 3 Xiaomi Door- / Window-Sensor
+  - 3 Xiaomi Mi Flora Plant Sensor
   - 2 Ariela Mobile App
 
 **Need:**
@@ -74,7 +75,7 @@ Don't forget Duplicati to make regular Backups, keeping a few versions, pushing 
   - ~~8-port managed Switch~~
   - More of these Osram Plugs to kill many of the idle devices when not_home *(look at PiHole how many connections these damn bastards do when you're gone! (And also electricity))*
   - Xiaomi Motion Detectors? Also as iluminance sensor
-  - Xiaomi Door-Window Sensors
+  - ~~Xiaomi Door-Window Sensors~~
   - Yeelights everywhere
   - LED Strip for bed
   - Internet Radio or so for wake up?
