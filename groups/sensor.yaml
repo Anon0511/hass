@@ -1,0 +1,7 @@
+sensor:
+  name: Sensoren
+  view: false
+  entities:
+    - binary_sensor.balconydoor
+    - binary_sensor.balconywindow
+    - binary_sensor.entrydoor

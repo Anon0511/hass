@@ -15,3 +15,5 @@ wohnzimmer:
     - sensor.airpurifier_mode
     - switch.anonpc
     - switch.avopc
+    - switch.tv_strom
+    - switch.ladegerat

@@ -53,19 +53,19 @@ Don't forget Duplicati to make regular Backups, keeping a few versions, pushing 
   - Netgear GS108eV3
   - Seagate Backup Plus Hub 8TB
   - 3 Yeelights *(2 2. Gen and 1 1. Gen)*
-  - Osram Smart+ Plug
+  - 4 Osram Smart+ Plug
   - Xiaomi Airpurifier Pro
   - Xiaomi Roborock S50
   - LG OLED 55C8
   - Nvidia Sield
   - FireTV
-  - Echo Dot V3
+  - 2 Echo Dot V3
   - 2 PC's
   - Xiaomi Gateway *(NOT WORKING)*
   - Xiaomi Humidity Sensor
   - Xiaomi Button
   - 3 Xiaomi Door- / Window-Sensor
-  - 3 Xiaomi Mi Flora Plant Sensor
+  - 4 Xiaomi Mi Flora Plant Sensor
   - 2 Ariela Mobile App
 
 **Need:**
@@ -77,9 +77,9 @@ Don't forget Duplicati to make regular Backups, keeping a few versions, pushing 
   - Xiaomi Motion Detectors? Also as iluminance sensor
   - ~~Xiaomi Door-Window Sensors~~
   - Yeelights everywhere
-  - LED Strip for bed
+  - ~~LED Strip for bed~~
   - Internet Radio or so for wake up?
-  - New car
+  - ~~New car~~
 
 **ToDo:**
   - ~~Connect Xiaomi Zigbee devices via Deconz or ZHA and leave the Gateway standalone~~

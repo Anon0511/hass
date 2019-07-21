@@ -1,6 +1,6 @@
 - platform: miflora
-  mac: !secret miflora_indoor
-  name: Indoor Plant
+  mac: !secret miflora_1
+  name: Chili Nora
   monitored_conditions:
     - moisture
     - light
@@ -9,8 +9,8 @@
     - battery
 
 - platform: miflora
-  mac: !secret miflora_outdoor_big
-  name: Outdoor Plant Big
+  mac: !secret miflora_2
+  name: Chili Reaper
   monitored_conditions:
     - moisture
     - light
@@ -19,8 +19,18 @@
     - battery
 
 - platform: miflora
-  mac: !secret miflora_outdoor_small
-  name: Outdoor Plant Small
+  mac: !secret miflora_3
+  name: Chili Purple
+  monitored_conditions:
+    - moisture
+    - light
+    - temperature
+    - conductivity
+    - battery
+
+- platform: miflora
+  mac: !secret miflora_4
+  name: Paprika
   monitored_conditions:
     - moisture
     - light

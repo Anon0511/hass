@@ -8,7 +8,16 @@
       entity_id: group.guests
       to: 'home'
   action:
+    - service: switch.turn_on
+      entity_id: switch.tv_strom
+    - service: switch.turn_on
+      entity_id: switch.ladegerat
     - service: alarm_control_panel.alarm_disarm
       data:
         entity_id: alarm_control_panel.alarm
         code: !secret alarm
+    - wait_template: "{{ is_state('media_player.lg_oled', 'on') }}"
+      timeout: '00:01:00'
+      continue_on_timeout: 'true'
+    - service: media_player.turn_off
+      entity_id: media_player.lg_oled

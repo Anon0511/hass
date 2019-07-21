@@ -4,9 +4,9 @@
       state: on
       transition: 2
       brightness_pct: 100
-      effect_list: Alarm
+      effect: Alarm
     light.wohnzimmer_gross:
       state: on
       transition: 2
       brightness_pct: 100
-      effect_list: Alarm
+      effect: Alarm

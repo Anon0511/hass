@@ -28,11 +28,11 @@
     data:
       message: 'Avo geht'
 
-- alias: 'Door opened'
+- alias: Door opened
   trigger:
-    - platform: state
-      entity_id: binary_sensor.entrydoor
-      to: 'on'
+    platform: state
+    entity_id: binary_sensor.entrydoor
+    to: 'on'
   condition:
     - condition: state
       entity_id: person.anon

@@ -6,5 +6,6 @@ schlafzimmer:
     - media_player.firetv
     - switch.bett_led
     - vacuum.roborock
+    - switch.schlafzimmer_ventilator
     - sensor.schlafzimmer_humidity
     - sensor.schlafzimmer_humidity_2
