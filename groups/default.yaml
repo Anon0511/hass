@@ -12,7 +12,7 @@ default_view:
     - group.speedtest
     - group.spotify
     - group.system
-    - group.plants
+#    - group.plants
     - group.sensor
     - group.all_lights
     - group.all_fans

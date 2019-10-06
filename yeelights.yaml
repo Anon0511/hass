@@ -1,0 +1,23 @@
+devices:
+  192.168.178.23:
+    name: Wohnzimmer Gross
+    transition: 1000
+    save_on_change: true
+#    use_music_mode: true
+  192.168.178.24:
+    name: Schlafzimmer Klein
+    transition: 1000
+    save_on_change: true
+#    use_music_mode: true
+#    192.168.178.29:
+#      name: Kueche
+#      transition: 1000
+#      save_on_change: true
+custom_effects:
+  - name: Fire Flicker
+    flow_params:
+      count: 0
+      transitions:
+        - TemperatureTransition: [1900, 1000, 80]
+        - TemperatureTransition: [1900, 2000, 60]
+        - SleepTransition:       [1000]

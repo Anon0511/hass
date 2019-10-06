@@ -20,6 +20,7 @@ alarm_control_panel: !include alarm.yaml
 alexa: !include alexa.yaml
 api:
 automation: !include_dir_merge_list automations/
+bmw_connected_drive: !include bmw.yaml
 circadian_lighting: !include circadian_lighting.yaml
 default_config:
 device_tracker: !include_dir_merge_list devices/
@@ -38,11 +39,12 @@ logger: !include logger.yaml
 map:
 media_player: !include_dir_merge_list mediaplayer/
 mobile_app:
-mqtt: !include mqtt.yaml
+#mqtt: !include mqtt.yaml
 notify: !include notify.yaml
 panel_custom: !include_dir_merge_list panel_custom/
 person:
-#recorder: !include recorder.yaml
+#pi_hole: !include pihole.yaml
+recorder: !include recorder.yaml
 scene: !include_dir_merge_list scenes/
 script: !include_dir_named scripts/
 sensor: !include_dir_merge_list sensors/
@@ -58,6 +60,6 @@ vacuum: !include vacuum.yaml
 wake_on_lan: !include_dir_merge_list wol/
 weather: !include weather.yaml
 #xiaomi_aqara: !include xiaomi_gateway.yaml
-yeelight: !include_dir_merge_named yeelights/
+yeelight: !include yeelights.yaml
 #zha: !include zha.yaml
 zone: !include zones.yaml

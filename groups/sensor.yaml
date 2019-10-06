@@ -2,6 +2,6 @@ sensor:
   name: Sensoren
   view: false
   entities:
-    - binary_sensor.balconydoor
-    - binary_sensor.balconywindow
-    - binary_sensor.entrydoor
+    - binary_sensor.balkon_ture
+    - binary_sensor.balkon_fenster
+    - binary_sensor.eingangsture

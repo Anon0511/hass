@@ -1,10 +1,15 @@
 - alias: Bedtime
   trigger:
-    platform: state
-    entity_id: switch.bett_led
-    to: 'on'
-    for:
-      minutes: 2
+    - platform: state
+      entity_id: switch.bett_led
+      to: 'on'
+      for:
+        minutes: 2
+    - platform: state
+      entity_id: light.schlafzimmer_klein
+      to: 'on'
+      for:
+        minutes: 2
   condition:
     - condition: state
       entity_id: group.family
@@ -23,7 +28,7 @@
     - service: media_player.turn_on
       entity_id: media_player.firetv
 
-- alias: Turn off bed LED
+- alias: Turn off bedroom
   trigger:
     platform: time
     at: '22:45'
@@ -40,3 +45,5 @@
   action:
     - service: switch.turn_off
       entity_id: switch.bett_led
+    - service: light.turn_off
+      entity_id: light.schlafzimmer_klein

@@ -1,8 +1,9 @@
 - platform: androidtv
   name: Nvidia Shield
-  device_class: androidtv
+#  device_class: androidtv
   host: 192.168.178.21
-  adb_server_ip: 127.0.0.1
+#  adb_server_ip: 127.0.0.1
+#  adb_server_port: 5037
   adbkey: "/config/adbkey"
   apps:
     "com.netflix.ninja": "Netflix"
@@ -15,10 +16,10 @@
     "tv.twitch.android.app": "Twitch"
 
 - platform: webostv
-  host: 192.168.178.32
+  host: 192.168.178.47
   name: LG OLED
   filename: webostv.conf
-  timeout: 5
+  timeout: 13
   turn_on_action:
     service: wake_on_lan.send_magic_packet
     data:

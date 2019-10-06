@@ -1,0 +1,5 @@
+auto:
+  name: Auto
+  view: false
+  entities:
+    - media_player.firetv

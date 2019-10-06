@@ -3,5 +3,3 @@ system:
   view: false
   entities:
     - sensor.fritz_netmonitor
-    - sensor.fail2ban_ha
-    - sensor.pi_hole_ads_blocked_today

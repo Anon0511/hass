@@ -1,9 +1,9 @@
 - name: Wohnzimmer normal
   entities:
-    light.wohnzimmer_klein:
+    light.schrankbeleuchtung:
       state: on
       transition: 2
-      brightness_pct: 60
+      brightness_pct: 100
     light.wohnzimmer_gross:
       state: on
       transition: 2
@@ -11,8 +11,10 @@
 
 - name: Wohnzimmer dim
   entities:
-    light.wohnzimmer_klein:
-      state: off
+    light.schrankbeleuchtung:
+      state: on
+      transition: 2
+      brightness_pct: 70
     light.wohnzimmer_gross:
       state: on
       transition: 2

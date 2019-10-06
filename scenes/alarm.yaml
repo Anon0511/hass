@@ -1,6 +1,6 @@
 - name: Alarm
   entities:
-    light.wohnzimmer_klein:
+    light.schlafzimmer_klein:
       state: on
       transition: 2
       brightness_pct: 100

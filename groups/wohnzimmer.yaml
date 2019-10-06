@@ -5,9 +5,8 @@ wohnzimmer:
   entities:
     - media_player.lg_oled
     - media_player.nvidia_shield
-    - light.wohnzimmer_klein
     - light.wohnzimmer_gross
-#    - binary_sensor.switch_158d00032697a0
+    - light.schrankbeleuchtung
     - fan.xiaomi_miio_device
     - sensor.airpurifier_humidity
     - sensor.airpurifier_aqi

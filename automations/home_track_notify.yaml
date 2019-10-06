@@ -31,7 +31,7 @@
 - alias: Door opened
   trigger:
     platform: state
-    entity_id: binary_sensor.entrydoor
+    entity_id: binary_sensor.eingangsture
     to: 'on'
   condition:
     - condition: state

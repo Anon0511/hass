@@ -1,0 +1,5 @@
+Anon:
+  username: !secret bmw_id
+  password: !secret bmw_pw
+  region: "rest_of_world"
+  read_only: true
