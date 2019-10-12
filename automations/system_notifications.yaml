@@ -1,0 +1,12 @@
+- alias: Dismiss Discovery Notification
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: call_service
+    event_data:
+      domain: persistent_notification
+      service: create
+  action:
+    service: persistent_notification.dismiss
+    data:
+      notification_id: config_entry_discovery

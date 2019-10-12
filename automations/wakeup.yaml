@@ -13,7 +13,13 @@
       value_template: "{{ states('sensor.current_day_time')[:-3] == states('sensor.huawei_mate_20_pro_next_alarm')[:-3] }}"
   action:
     - service: light.turn_on
-      entity_id: group.all_lights
+      entity_id: light.schlafzimmer
+    - service: light.turn_on
+      entity_id: light.schlafzimmer_klein
+    - service: light.turn_on
+      entity_id: light.wohnzimmer
+    - service: light.turn_on
+      entity_id: light.wohnzimmer_gross
     - service: media_player.turn_on
       entity_id: media_player.nvidia_shield
     - delay: '00:00:10'

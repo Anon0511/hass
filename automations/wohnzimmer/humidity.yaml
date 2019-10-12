@@ -1,0 +1,37 @@
+- alias: Humiditiy too low
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.airpurifier_humidity
+      below: 45
+  condition:
+    - condition: state
+      entity_id: input_boolean.humidity
+      state: 'on'
+  action:
+    - service: notify.notify_telegram_anon
+      data:
+        message: 'Luftfeuchtigkeit zu gering'
+    - service: notify.notify_telegram_avo
+      data:
+        message: 'Luftfeuchtigkeit zu gering'
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.humidity
+
+- alias: Humiditiy ok
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.airpurifier_humidity
+      above: 55
+  condition:
+    - condition: state
+      entity_id: input_boolean.humidity
+      state: 'off'
+  action:
+    - service: notify.notify_telegram_anon
+      data:
+        message: 'Luftfeuchtigkeit ausreichend'
+    - service: notify.notify_telegram_avo
+      data:
+        message: 'Luftfeuchtigkeit ausreichend'
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.humidity
