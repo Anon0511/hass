@@ -1,4 +1,4 @@
-##Home Assistant V0.95.0
+##Home Assistant V0.100.2
 
 So this is my config as of now, most likely updated from time to time.
 
@@ -11,28 +11,28 @@ I didn't even use consistent syntax. God damn.
 Also some things still throw errors which may or may not affect the function.
 
 **NOT WORKING:**
-  - ~~ADB seems to be unreliable yet, devices become unavailable and available again like every 10 seconds.~~ moved to adb server
+  - ~~ADB seems to be unreliable yet, devices become unavailable and available again like every 10 seconds.~~ ~~moved to adb server~~ Moved to custom component via HACS from Jeff
   - ~~ZHA seems to be unreliable yet, sometimes it turn-on turn-off works, sometimes not, throws errors in log / Seems to be fixed with 0.94~~ moved to deconz
   - Xiaomi Gateway (Reset not possible)
-  - Duplicati Backups
+  - ~~Duplicati Backups~~
 
 **NOT Integrated:**
   - Cheap Hisense 4k TV in bedroom that isn't even online when turned off but idrc anyway
   - Kitchen Yeelight (it actually has no use anyway except I could pair it with a motion detector which I haven't bought yet)
 
 **Docker:**
-  - homeassistant/raspberrypi2-homeassistant
+  - homeassistant/home-assistant
   - pihole/pihole
-  - portainer/portainer:arm
+  - portainer/portainer
   - pyouroboros/ouroboros *(deactivated)*
-  - codeskyblue/adb *(FORKED)*
-  - eclipse-mosquitto
-  - linuxserver/letsencrypt:arm32v7-latest
-  - linuxserver/duplicati:arm32v7-latest
-  - linuxserver/duckdns:arm32v7-latest
-  - linuxserver/mariadb *(Removed for now)*
-  - marthoc/deconz:armhf
-  - nodered
+  - ~~codeskyblue/adb *(FORKED)*~~
+  - ~~eclipse-mosquitto~~
+  - linuxserver/letsencrypt
+  - linuxserver/duplicati
+  - linuxserver/duckdns
+  - linuxserver/mariadb
+  - marthoc/deconz
+  - ~~nodered~~
 
 **Monitoring:**
   - Netdata
@@ -67,24 +67,27 @@ Don't forget Duplicati to make regular Backups, keeping a few versions, pushing 
   - 3 Xiaomi Door- / Window-Sensor
   - 4 Xiaomi Mi Flora Plant Sensor
   - 2 Ariela Mobile App
+  - Tradfri 30W Driver @ 11x Ledberg Spots (Zigbee)
+  - Medion Alexa WiFi Radio
 
 **Need:**
   - ~~Powerline Mesh~~
   - New RPI2 replacement (Keep Pi for PiHole)
   - ~~6-10TB External Backup HDD~~
   - ~~8-port managed Switch~~
-  - More of these Osram Plugs to kill many of the idle devices when not_home *(look at PiHole how many connections these damn bastards do when you're gone! (And also electricity))*
+  - ~~More of these Osram Plugs to kill many of the idle devices when not_home *(look at PiHole how many connections these damn bastards do when you're gone! (And also electricity))*~~
   - Xiaomi Motion Detectors? Also as iluminance sensor
   - ~~Xiaomi Door-Window Sensors~~
   - Yeelights everywhere
   - ~~LED Strip for bed~~
-  - Internet Radio or so for wake up?
+  - ~~Internet Radio or so for wake up?~~
   - ~~New car~~
+  - Unifi Setup
 
 **ToDo:**
   - ~~Connect Xiaomi Zigbee devices via Deconz or ZHA and leave the Gateway standalone~~
   - Further integrations
-  - MQTT Topics
+  - (MQTT Topics)
   - ~~MariaDB Recorder~~
   - Better automations
   - Scripts
