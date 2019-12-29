@@ -1,5 +1,5 @@
 controllers:
-  - host: unifi
+  - host: 127.0.0.1
     site: My site
     ssid_filter:
       - 'HomeSSID'

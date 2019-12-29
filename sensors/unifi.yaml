@@ -1,5 +1,5 @@
 - platform: unifigateway
-  host: unifi
+  host: 127.0.0.1
   username: !secret unifi_username
   password: !secret unifi_password
   monitored_conditions:

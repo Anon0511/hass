@@ -5,6 +5,7 @@
   hourly_forecast:
     - 0
     - 1
+  language: de
   monitored_conditions:
     - summary
     - icon

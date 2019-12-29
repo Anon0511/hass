@@ -7,8 +7,6 @@ schlafzimmer:
     - switch.bett_led
     - vacuum.roborock
     - switch.schlafzimmer_ventilator
-    - sensor.schlafzimmer_humidity
-    - sensor.schlafzimmer_humidity_2
     - sensor.schlafzimmer_airpurifier_humidity
     - sensor.schlafzimmer_airpurifier_aqi
     - sensor.schlafzimmer_airpurifier_temp
