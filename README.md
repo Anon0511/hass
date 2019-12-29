@@ -48,6 +48,8 @@ Also some things still throw errors which may or may not affect the function.
 
 **Monitoring:**
   - Netdata
+  - CheckMK
+  - OpsGenie
 
 External reachable! I use the Fail2Ban from Host (protecting SSH) to also read the HASS Logs. 
 
