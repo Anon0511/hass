@@ -25,8 +25,8 @@
       entity_id: group.wohnzimmer
     - service: media_player.turn_off
       entity_id: media_player.lg_oled
-    - service: media_player.turn_on
-      entity_id: media_player.firetv
+    #- service: media_player.turn_on
+    #  entity_id: media_player.firetv
 
 - alias: Turn off bedroom
   trigger:

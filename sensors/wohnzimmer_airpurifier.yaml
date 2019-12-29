@@ -1,0 +1,32 @@
+- platform: template
+  sensors:
+    wohnzimmer_airpurifier_temp:
+      friendly_name: "Wohnzimmer Temperatur"
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.temperature }}"
+      unit_of_measurement: "°C"
+
+- platform: template
+  sensors:
+    wohnzimmer_airpurifier_humidity:
+      friendly_name: "Wohnzimmer Luftfeuchte"
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.humidity }}"
+      unit_of_measurement: "%"
+
+- platform: template
+  sensors:
+    wohnzimmer_airpurifier_aqi:
+      friendly_name: "Wohnzimmer Feinstaub"
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.aqi }}"
+      unit_of_measurement: "PM2.5"
+
+- platform: template
+  sensors:
+    wohnzimmer_airpurifier_mode:
+      friendly_name: "Wohnzimmer Luftreiniger Modus"
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.mode }}"
+
+- platform: template
+  sensors:
+    wohnzimmer_airpurifier_illuminance:
+      friendly_name: "Wohnzimmer Luftreiniger Illuminance"
+      value_template: "{{ states.fan.xiaomi_miio_device.attributes.illuminance }}"

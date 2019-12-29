@@ -2,8 +2,12 @@
   trigger:
     - platform: state
       entity_id: media_player.nvidia_shield
-      from: 'playing'
+      #from: 'playing'
       to: 'paused'
+    - platform: state
+      entity_id: media_player.nvidia_shield
+      #from: 'playing'
+      to: 'standby'
   condition:
     - condition: state
       entity_id: light.wohnzimmer_gross
@@ -17,7 +21,7 @@
     - platform: state
       entity_id: media_player.nvidia_shield
       to: 'playing'
-      from: 'paused'
+      #from: 'paused'
   condition:
     - condition: state
       entity_id: light.wohnzimmer_gross

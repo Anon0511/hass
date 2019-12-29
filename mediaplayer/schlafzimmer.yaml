@@ -1,7 +1,7 @@
 - platform: androidtv
   name: FireTV
 #  device_class: firetv
-  host: 192.168.178.27
+  host: 192.168.1.12
 #  adb_server_ip: 127.0.0.1
 #  adb_server_port: 5037
   adbkey: "/config/adbkey"

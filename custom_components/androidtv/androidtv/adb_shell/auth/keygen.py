@@ -1,3 +1,8 @@
+# Copyright (c) 2019 Jeff Irion and contributors
+#
+# This file is part of the adb-shell package.  It was originally written by
+# @joeleong, and it was obtained from: https://github.com/google/python-adb/pull/144
+
 """This file implements encoding and decoding logic for Android's custom RSA
 public key binary format. Public keys are stored as a sequence of
 little-endian 32 bit words. Note that Android only supports little-endian
@@ -119,8 +124,8 @@ def decode_pubkey(public_key):
     rr = reversed(rr_bytes)
     _LOGGER.debug('modulus_size_words: %s', hex(modulus_size_words))
     _LOGGER.debug('n0inv: %s', hex(n0inv))
-    _LOGGER.debug('modulus: %s', ':'.join(map(hex, modulus)))
-    _LOGGER.debug('rr: %s', ':'.join(map(hex, rr)))
+    _LOGGER.debug('modulus: %s', ':'.join((hex(m) for m in modulus)))
+    _LOGGER.debug('rr: %s', ':'.join((hex(r) for r in rr)))
     _LOGGER.debug('exponent: %s', hex(exponent))
 
 

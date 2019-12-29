@@ -1,3 +1,23 @@
+# Copyright (c) 2019 Jeff Irion and contributors
+#
+# This file is part of the adb-shell package.  It incorporates work
+# covered by the following license notice:
+#
+#
+#   Copyright 2014 Google Inc. All rights reserved.
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
 """Functions and an :class:`AdbMessage` class for packing and unpacking ADB messages.
 
 .. rubric:: Contents
@@ -39,14 +59,14 @@ def checksum(data):
     elif isinstance(data, bytes):
         if data and isinstance(data[0], bytes):
             # Python 2 bytes (str) index as single-character strings.
-            total = sum(map(ord, data))  # pragma: no cover
+            total = sum((ord(d) for d in data))  # pragma: no cover
         else:
             # Python 3 bytes index as numbers (and PY2 empty strings sum() to 0)
             total = sum(data)
 
     else:
         # Unicode strings (should never see?)
-        total = sum(map(ord, data))
+        total = sum((ord(d) for d in data))
 
     return total & 0xFFFFFFFF
 
@@ -114,7 +134,7 @@ class AdbMessage(object):
         ``self.command`` with its bits flipped; in other words, ``self.command + self.magic == 2**32 - 1``
 
     """
-    def __init__(self, command, arg0=None, arg1=None, data=b''):
+    def __init__(self, command, arg0, arg1, data=b''):
         self.command = constants.ID_TO_WIRE[command]
         self.magic = self.command ^ 0xFFFFFFFF
         self.arg0 = arg0

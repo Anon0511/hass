@@ -55,6 +55,7 @@ switch: !include_dir_merge_list switches/
 system_health:
 telegram_bot: !include telegram_bot.yaml
 tts: !include tts.yaml
+#unifi: !include unifi.yaml
 updater:
 vacuum: !include vacuum.yaml
 wake_on_lan: !include_dir_merge_list wol/

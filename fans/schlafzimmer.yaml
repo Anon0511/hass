@@ -1,0 +1,4 @@
+- platform: xiaomi_miio
+  name: Schlafzimmer Airpurifier
+  host: 192.168.1.32
+  token: !secret schlafzimmer_airpurifier_token

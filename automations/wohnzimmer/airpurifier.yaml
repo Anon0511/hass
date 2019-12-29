@@ -1,0 +1,133 @@
+################################################################################
+# Set input states when HA starts or states change
+################################################################################
+
+- alias: Set state for air purifier input
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: sensor.xiaomi_miio_device_mode
+  action:
+    service: input_select.select_option
+    data_template:
+      entity_id: input_select.xiaomi_miio_device_mode
+      option: '{{ states.fan.xiaomi_miio_device.attributes.mode }}'
+
+- alias: Set state for air purifier favorite level input
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: sensor.xiaomi_miio_device_favorite_level
+  action:
+    service: input_number.set_value
+    data_template:
+      entity_id: input_number.air_purifier_favorite_level
+      value: '{{ states.fan.xiaomi_miio_device.attributes.favorite_level | int }}'
+
+################################################################################
+# Inputs
+################################################################################
+
+- alias: Air purifier mode
+  trigger:
+    platform: state
+    entity_id: input_select.xiaomi_air_purifier_mode
+  action:
+    - service: fan.set_speed
+      data_template:
+        entity_id: fan.xiaomi_miio_device
+        speed: '{{ states.input_select.xiaomi_air_purifier_mode.state }}'
+
+- alias: Air purifier favorite level
+  trigger:
+    platform: state
+    entity_id: input_number.xiaomi_air_purifier_favorite_level
+  action:
+    - service: xiaomi_miio.fan_set_favorite_level
+      data_template:
+        entity_id: fan.xiaomi_miio_device
+        level: '{{ states.input_number.xiaomi_air_purifier_favorite_level.state | int }}'
+
+
+################################################################################
+# Automatic control
+################################################################################
+
+- alias: Turn off airpurifier
+  trigger:
+    platform: numeric_state
+    entity_id: fan.xiaomi_miio_device
+    value_template: "{{ states.fan.xiaomi_miio_device.attributes.aqi | int }}"
+    below: 50
+    for: '00:00:10'
+  condition:
+    - condition: state
+      entity_id: fan.xiaomi_miio_device
+      state: 'on'
+  action:
+    service: fan.turn_off
+    entity_id: fan.xiaomi_miio_device
+
+- alias: Turn off airpurifier
+  trigger:
+    platform: numeric_state
+    entity_id: fan.xiaomi_miio_device
+    value_template: "{{ states.fan.xiaomi_miio_device.attributes.aqi | int }}"
+    above: 50
+    for: '00:00:10'
+  condition:
+    - condition: state
+      entity_id: fan.xiaomi_miio_device
+      state: 'off'
+  action:
+    service: fan.turn_on
+    entity_id: fan.xiaomi_miio_device
+
+- alias: Set favorite fan speed for airpurifier
+  trigger:
+    platform: time_pattern
+    seconds: '/5'
+  action:
+    - service: fan.set_speed
+      entity_id: fan.xiaomi_miio_device
+      data:
+        speed: favorite
+    - service: xiaomi_miio.fan_set_favorite_level
+      data_template:
+        entity_id: fan.xiaomi_miio_device
+        level: >
+            {% if states.fan.schlafzimmer_airpurifier.attributes.aqi | int == 600 %}
+              12
+            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 500 %}
+              11
+            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 400 %}
+              10
+            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 350 %}
+              8
+            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 300 %}
+              7
+            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 230 %}
+              6
+            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 150 %}
+              5
+            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 125 %}
+              4
+            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 100 %}
+              3
+            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 75 %}
+              2
+            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 50 %}
+              1
+            {% else %}
+              0
+            {% endif %}
+    - service: input_select.select_option
+      data_template:
+        entity_id: input_select.xiaomi_air_purifier_mode
+        option: '{{ states.fan.xiaomi_miio_device.attributes.mode }}'
+    - service: input_number.set_value
+      data_template:
+        entity_id: input_number.xiaomi_air_purifier_favorite_level
+        value: '{{ states.fan.xiaomi_miio_device.attributes.favorite_level }}'

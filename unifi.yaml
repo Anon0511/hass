@@ -1,0 +1,6 @@
+controllers:
+  - host: unifi
+    site: My site
+    ssid_filter:
+      - 'HomeSSID'
+      - 'IoTSSID'

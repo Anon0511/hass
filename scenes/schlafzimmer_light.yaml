@@ -1,0 +1,15 @@
+- name: Schlafzimmer normal
+  entities:
+    light.schlafzimmer_klein:
+      state: on
+      #transition: 2
+      #brightness_pct: 100
+      brightness: 254
+
+- name: Schlafzimmer dim
+  entities:
+    light.schlafzimmer_klein:
+      state: on
+      #transition: 2
+      #brightness_pct: 60
+      brightness: 126
