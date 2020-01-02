@@ -43,7 +43,7 @@
     - service: scene.turn_on
       entity_id: scene.wohnzimmer_normal
 
-- alias: Light turn on too dark TV on
+- alias: Light turn on too dark TV on normal
   trigger:
     - platform: time_pattern
       minutes: '/1'
@@ -63,30 +63,67 @@
     - condition: state
       entity_id: media_player.lg_oled
       state: 'on'
+    - condition: state
+      entity_id: switch.darkmode
+      state: 'off'
+    - condition: state
+      entity_id: switch.lightmode
+      state: 'off'
   action:
     - service: scene.turn_on
       entity_id: scene.wohnzimmer_dim
 
-#- alias: Turn on small lamp after 20h
-#  trigger:
-#    platform: time_pattern
-#    minutes: '/1'
-#  condition:
-#    - condition: state
-#      entity_id: group.family
-#      state: 'home'
-#    - condition: state
-#      entity_id: media_player.lg_oled
-#      state: 'off'
-#    - condition: state
-#      entity_id: switch.bett_led
-#      state: 'off'
-#    - condition: state
-#      entity_id: sun.sun
-#      state: 'below_horizon'
-#    - condition: state
-#      entity_id: light.wohnzimmer_gross
-#      state: 'on'
-#  action:
-#    - service: light.turn_on
-#      entity_id: light.wohnzimmer_klein
+- alias: Light turn on too dark TV on dark
+  trigger:
+    - platform: time_pattern
+      minutes: '/1'
+  condition:
+    - condition: state
+      entity_id: group.family
+      state: 'home'
+    - condition: state
+      entity_id: switch.bett_led
+      state: 'off'
+    - condition: time
+      after: '11:00'
+      before: '21:00'
+    - condition: numeric_state
+      entity_id: sensor.airpurifier_illuminance
+      below: 50
+    - condition: state
+      entity_id: media_player.lg_oled
+      state: 'on'
+    - condition: state
+      entity_id: switch.darkmode
+      state: 'on'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_dark
+
+- alias: Light turn on too dark TV on light
+  trigger:
+    - platform: time_pattern
+      minutes: '/1'
+  condition:
+    - condition: state
+      entity_id: group.family
+      state: 'home'
+    - condition: state
+      entity_id: switch.bett_led
+      state: 'off'
+    - condition: time
+      after: '11:00'
+      before: '21:00'
+    - condition: numeric_state
+      entity_id: sensor.airpurifier_illuminance
+      below: 50
+    - condition: state
+      entity_id: media_player.lg_oled
+      state: 'on'
+    - condition: state
+      entity_id: switch.lightmode
+      state: 'off'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_light
+

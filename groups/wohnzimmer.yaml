@@ -16,3 +16,5 @@ wohnzimmer:
     - switch.avopc
     - switch.tv_strom
     - switch.ladegerat
+    - switch.darkmode
+    - switch.lightmode

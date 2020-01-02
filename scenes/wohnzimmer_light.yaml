@@ -23,3 +23,13 @@
       #transition: 2
       #brightness_pct: 50
       brightness: 126
+
+- name: Wohnzimmer dark
+  entities:
+    light.schrankbeleuchtung:
+      state: off
+    light.wohnzimmer_gross:
+      state: on
+      #transition: 2
+      #brightness_pct: 50
+      brightness: 126

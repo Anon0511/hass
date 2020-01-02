@@ -16,7 +16,7 @@
     service: scene.turn_on
     entity_id: scene.wohnzimmer_normal
 
-- alias: Lights Shield playing
+- alias: Lights Shield playing light
   trigger:
     - platform: state
       entity_id: media_player.nvidia_shield
@@ -26,11 +26,51 @@
     - condition: state
       entity_id: light.wohnzimmer_gross
       state: 'on'
+    - condition: state
+      entity_id: switch.lightmode
+      state: 'on'
+  action:
+    service: scene.turn_on
+    entity_id: scene.wohnzimmer_normal
+
+- alias: Lights Shield playing normal
+  trigger:
+    - platform: state
+      entity_id: media_player.nvidia_shield
+      to: 'playing'
+      #from: 'paused'
+  condition:
+    - condition: state
+      entity_id: light.wohnzimmer_gross
+      state: 'on'
+    - condition: state
+      entity_id: switch.lightmode
+      state: 'off'
+    - condition: state
+      entity_id: switch.darkmode
+      state: 'off'
   action:
     service: scene.turn_on
     entity_id: scene.wohnzimmer_dim
 
-- alias: Lights Media Source not HDMI1
+- alias: Lights Shield playing dark
+  trigger:
+    - platform: state
+      entity_id: media_player.nvidia_shield
+      to: 'playing'
+      #from: 'paused'
+  condition:
+    - condition: state
+      entity_id: light.wohnzimmer_gross
+      state: 'on'
+    - condition: state
+      entity_id: switch.darkmode
+      state: 'on'
+  action:
+    service: scene.turn_on
+    entity_id: scene.wohnzimmer_dark
+
+- alias: Lights Media Source not HDMI1 normal
   trigger:
     - platform: template
       value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 2') }}"
@@ -48,7 +88,63 @@
     - condition: state
       entity_id: light.wohnzimmer_gross
       state: 'on'
+    - condition: state
+      entity_id: switch.lightmode
+      state: 'off'
+    - condition: state
+      entity_id: switch.darkmode
+      state: 'off'
   action:
     service: scene.turn_on
     entity_id: scene.wohnzimmer_dim
+
+- alias: Lights Media Source not HDMI1 normal
+  trigger:
+    - platform: template
+      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 2') }}"
+    - platform: template
+      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 3') }}"
+    - platform: template
+      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 4') }}"
+    - platform: template
+      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Netflix') }}"
+    - platform: template
+      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Live TV') }}"
+    - platform: template
+      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Youtube') }}"
+  condition:
+    - condition: state
+      entity_id: light.wohnzimmer_gross
+      state: 'on'
+    - condition: state
+      entity_id: switch.darkmode
+      state: 'on'
+  action:
+    service: scene.turn_on
+    entity_id: scene.wohnzimmer_dark
+
+- alias: Lights Media Source not HDMI1 light
+  trigger:
+    - platform: template
+      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 2') }}"
+    - platform: template
+      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 3') }}"
+    - platform: template
+      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 4') }}"
+    - platform: template
+      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Netflix') }}"
+    - platform: template
+      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Live TV') }}"
+    - platform: template
+      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Youtube') }}"
+  condition:
+    - condition: state
+      entity_id: light.wohnzimmer_gross
+      state: 'on'
+    - condition: state
+      entity_id: switch.lightmode
+      state: 'on'
+  action:
+    service: scene.turn_on
+    entity_id: scene.wohnzimmer_normal
 

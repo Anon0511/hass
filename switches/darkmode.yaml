@@ -1,0 +1,11 @@
+- platform: template
+  switches:
+    guests:
+      value_template: '{{ states("input_boolean.darkmode") }}'
+      friendly_name: 'Dark Mode'
+      turn_on:
+        - service: input_boolean.turn_on
+          entity_id: input_boolean.darkmode
+      turn_off:
+        - service: input_boolean.turn_off
+          entity_id: input_boolean.darkmode
