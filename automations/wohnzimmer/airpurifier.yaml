@@ -98,27 +98,27 @@
       data_template:
         entity_id: fan.xiaomi_miio_device
         level: >
-            {% if states.fan.schlafzimmer_airpurifier.attributes.aqi | int == 600 %}
+            {% if states.fan.xiaomi_miio_device.attributes.aqi | int == 600 %}
               12
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 500 %}
+            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 500 %}
               11
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 400 %}
+            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 400 %}
               10
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 350 %}
+            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 350 %}
               8
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 300 %}
+            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 300 %}
               7
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 230 %}
+            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 230 %}
               6
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 150 %}
+            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 150 %}
               5
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 125 %}
+            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 125 %}
               4
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 100 %}
+            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 100 %}
               3
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 75 %}
+            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 75 %}
               2
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 50 %}
+            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 50 %}
               1
             {% else %}
               0

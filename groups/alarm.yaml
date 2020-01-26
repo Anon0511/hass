@@ -1,0 +1,5 @@
+alarm:
+  name: Alarm
+  view: false
+  entities:
+    - alarm_control_panel.alarm

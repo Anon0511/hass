@@ -73,17 +73,17 @@
 - alias: Lights Media Source not HDMI1 normal
   trigger:
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 2') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'HDMI 2') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 3') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'HDMI 3') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 4') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'HDMI 4') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Netflix') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'Netflix') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Live TV') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'Live TV') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Youtube') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'Youtube') }}"
   condition:
     - condition: state
       entity_id: light.wohnzimmer_gross
@@ -101,17 +101,17 @@
 - alias: Lights Media Source not HDMI1 normal
   trigger:
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 2') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'HDMI 2') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 3') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'HDMI 3') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 4') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'HDMI 4') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Netflix') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'Netflix') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Live TV') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'Live TV') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Youtube') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'Youtube') }}"
   condition:
     - condition: state
       entity_id: light.wohnzimmer_gross
@@ -126,17 +126,17 @@
 - alias: Lights Media Source not HDMI1 light
   trigger:
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 2') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'HDMI 2') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 3') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'HDMI 3') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'HDMI 4') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'HDMI 4') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Netflix') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'Netflix') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Live TV') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'Live TV') }}"
     - platform: template
-      value_template: "{{ is_state_attr('media_player.lg_oled', 'source', 'Youtube') }}"
+      value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'Youtube') }}"
   condition:
     - condition: state
       entity_id: light.wohnzimmer_gross

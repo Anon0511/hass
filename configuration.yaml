@@ -60,6 +60,7 @@ updater:
 vacuum: !include vacuum.yaml
 wake_on_lan: !include_dir_merge_list wol/
 weather: !include weather.yaml
+webostv: !include webostv.yaml
 #xiaomi_aqara: !include xiaomi_gateway.yaml
 yeelight: !include yeelights.yaml
 #zha: !include zha.yaml

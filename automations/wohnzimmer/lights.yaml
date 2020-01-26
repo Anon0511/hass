@@ -6,14 +6,11 @@
     - condition: state
       entity_id: group.family
       state: 'home'
-    - condition: state
-      entity_id: switch.bett_led
-      state: 'off'
     - condition: time
       after: '10:00'
       before: '20:00'
     - condition: numeric_state
-      entity_id: sensor.airpurifier_illuminance
+      entity_id: sensor.wohnzimmer_airpurifier_illuminance
       above: 160
   action:
     - service: light.turn_off
@@ -27,17 +24,14 @@
     - condition: state
       entity_id: group.family
       state: 'home'
-    - condition: state
-      entity_id: switch.bett_led
-      state: 'off'
     - condition: time
       after: '11:00'
       before: '21:00'
     - condition: numeric_state
-      entity_id: sensor.airpurifier_illuminance
+      entity_id: sensor.wohnzimmer_airpurifier_illuminance
       below: 50
     - condition: state
-      entity_id: media_player.lg_oled
+      entity_id: media_player.wohnzimmer_tv
       state: 'off'
   action:
     - service: scene.turn_on
@@ -58,10 +52,10 @@
       after: '11:00'
       before: '21:00'
     - condition: numeric_state
-      entity_id: sensor.airpurifier_illuminance
+      entity_id: sensor.wohnzimmer_airpurifier_illuminance
       below: 50
     - condition: state
-      entity_id: media_player.lg_oled
+      entity_id: media_player.wohnzimmer_tv
       state: 'on'
     - condition: state
       entity_id: switch.darkmode
@@ -81,17 +75,14 @@
     - condition: state
       entity_id: group.family
       state: 'home'
-    - condition: state
-      entity_id: switch.bett_led
-      state: 'off'
     - condition: time
       after: '11:00'
       before: '21:00'
     - condition: numeric_state
-      entity_id: sensor.airpurifier_illuminance
+      entity_id: sensor.wohnzimmer_airpurifier_illuminance
       below: 50
     - condition: state
-      entity_id: media_player.lg_oled
+      entity_id: media_player.wohnzimmer_tv
       state: 'on'
     - condition: state
       entity_id: switch.darkmode
@@ -108,17 +99,14 @@
     - condition: state
       entity_id: group.family
       state: 'home'
-    - condition: state
-      entity_id: switch.bett_led
-      state: 'off'
     - condition: time
       after: '11:00'
       before: '21:00'
     - condition: numeric_state
-      entity_id: sensor.airpurifier_illuminance
+      entity_id: sensor.wohnzimmer_airpurifier_illuminance
       below: 50
     - condition: state
-      entity_id: media_player.lg_oled
+      entity_id: media_player.wohnzimmer_tv
       state: 'on'
     - condition: state
       entity_id: switch.lightmode

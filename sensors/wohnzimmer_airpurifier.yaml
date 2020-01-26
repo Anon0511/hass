@@ -30,3 +30,4 @@
     wohnzimmer_airpurifier_illuminance:
       friendly_name: "Wohnzimmer Luftreiniger Illuminance"
       value_template: "{{ states.fan.xiaomi_miio_device.attributes.illuminance }}"
+

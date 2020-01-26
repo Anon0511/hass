@@ -4,6 +4,7 @@ default_view:
   entities:
     - sun.sun
     - weather.darksky
+    - group.alarm
     - group.family
     - group.wohnzimmer
     - group.schlafzimmer

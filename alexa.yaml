@@ -20,8 +20,8 @@ smart_home:
     media_player.firetv:
       name: FireTV
       display_categories: TV
-    media_player.lg_oled:
-      name: TV
+    media_player.wohnzimmer_tv:
+      name: Wohnzimmer TV
       display_categories: TV
     media_player.nvidia_shield:
       name: Shield

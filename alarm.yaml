@@ -1,8 +1,8 @@
 - platform: manual
   name: Alarm
   code: !secret alarm
-  pending_time: 30
-  delay_time: 20
+  pending_time: 60
+  delay_time: 30
   trigger_time: 4
   disarmed:
     trigger_time: 0

@@ -3,7 +3,7 @@ wohnzimmer:
   icon: mdi:sofa
   view: false
   entities:
-    - media_player.lg_oled
+    - media_player.wohnzimmer_tv
     - media_player.nvidia_shield
     - light.wohnzimmer_gross
     - light.schrankbeleuchtung

@@ -1,6 +1,6 @@
 - platform: template
   switches:
-    guests:
+    darkmode:
       value_template: '{{ states("input_boolean.darkmode") }}'
       friendly_name: 'Dark Mode'
       turn_on:

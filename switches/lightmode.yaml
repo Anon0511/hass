@@ -1,6 +1,6 @@
 - platform: template
   switches:
-    guests:
+    lightmode:
       value_template: '{{ states("input_boolean.lightmode") }}'
       friendly_name: 'Light Mode'
       turn_on:

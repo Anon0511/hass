@@ -12,7 +12,11 @@
       state: 'not_home'
   action:
     - service: light.turn_off
-      entity_id: group.all_lights
+      entity_id: light.wohnzimmer_gross
+    - service: light.turn_off
+      entity_id: light.schrankbeleuchtung
+    - service: light.turn_off
+      entity_id: light.schlafzimmer_licht
     - service: switch.turn_off
       entity_id: switch.bett_led
     - service: switch.turn_off
@@ -20,7 +24,7 @@
     - service: switch.turn_off
       entity_id: switch.ladegerat
     - service: media_player.turn_off
-      entity_id: media_player.lg_oled
+      entity_id: media_player.wohnzimmer_tv
     - service: media_player.turn_off
       entity_id: media_player.firetv
     - service: alarm_control_panel.alarm_arm_away

@@ -1,7 +1,7 @@
 - alias: Cats doing shit
   trigger:
     platform: state
-    entity_id: media_player.lg_oled
+    entity_id: media_player.wohnzimmer_tv
     to: 'on'
   condition:
     - condition: state
@@ -15,4 +15,4 @@
       data:
         message: 'Die scheiß Blagen haben den Fernseher angemacht. Schalte aus.'
     - service: media_player.turn_off
-      entity_id: media_player.lg_oled
+      entity_id: media_player.wohnzimmer_tv

@@ -1,0 +1,17 @@
+host: 192.168.1.16
+name: Wohnzimmer TV
+standby_connection: true
+turn_on_action:
+  service: wake_on_lan.send_magic_packet
+  data:
+    mac: !secret lg_oled_mac
+customize:
+  sources:
+    - hdmi1
+    - hdmi2
+    - hdmi3
+    - hdmi4
+    - livetv
+    - netflix
+    - plex
+    - youtube

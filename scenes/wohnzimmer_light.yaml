@@ -2,26 +2,18 @@
   entities:
     light.schrankbeleuchtung:
       state: on
-      #transition: 2
-      #brightness_pct: 100
       brightness: 254
     light.wohnzimmer_gross:
       state: on
-      #transition: 2
-      #brightness_pct: 80
       brightness: 204
 
 - name: Wohnzimmer dim
   entities:
     light.schrankbeleuchtung:
       state: on
-      #transition: 2
-      #brightness_pct: 50
       brightness: 126
     light.wohnzimmer_gross:
       state: on
-      #transition: 2
-      #brightness_pct: 50
       brightness: 126
 
 - name: Wohnzimmer dark
@@ -30,6 +22,4 @@
       state: off
     light.wohnzimmer_gross:
       state: on
-      #transition: 2
-      #brightness_pct: 50
       brightness: 126
