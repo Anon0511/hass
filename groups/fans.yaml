@@ -1,6 +1,5 @@
 fans:
   name: Luft
   icon: mdi:access-point-network
-  view: false
   entities:
     - group.all_fans

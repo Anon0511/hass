@@ -1,6 +1,5 @@
 plants:
   name: Pflanzen
-  view: false
   entities:
     - sensor.chili_nora_conductivity
     - sensor.chili_nora_light_intensity

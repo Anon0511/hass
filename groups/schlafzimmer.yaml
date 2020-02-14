@@ -1,7 +1,6 @@
 schlafzimmer:
   name: Schlafzimmer
   icon: mdi:bed-empty
-  view: false
   entities:
     - media_player.firetv
     - switch.bett_led

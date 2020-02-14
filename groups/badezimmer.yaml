@@ -1,6 +1,5 @@
 badezimmer:
   name: Badezimmer
-  view: false
   entities:
     - sensor.badezimmer_humidity
     - sensor.badezimmer_humidity_2

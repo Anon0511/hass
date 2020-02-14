@@ -1,5 +1,4 @@
 system:
   name: System
-  view: false
   entities:
     - sensor.fritz_netmonitor

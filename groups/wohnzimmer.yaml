@@ -1,7 +1,6 @@
 wohnzimmer:
   name: Wohnzimmer
   icon: mdi:sofa
-  view: false
   entities:
     - media_player.wohnzimmer_tv
     - media_player.nvidia_shield
