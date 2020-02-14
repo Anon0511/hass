@@ -50,6 +50,7 @@ script: !include_dir_named scripts/
 sensor: !include_dir_merge_list sensors/
 shell_command: !include shell_commands.yaml
 speedtestdotnet: !include speedtest.yaml
+spotify: !include spotify.yaml
 sun:
 switch: !include_dir_merge_list switches/
 system_health:
