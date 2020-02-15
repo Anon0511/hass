@@ -150,7 +150,7 @@
       data_template:
         entity_id: fan.schlafzimmer_airpurifier
         level: >
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 600 %}
+            {% if states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 600 %}
               6
             {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 500 %}
               5
