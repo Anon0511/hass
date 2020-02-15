@@ -1,9 +1,0 @@
-unifi:
-  name: Unifi
-  entities:
-    - sensor.unifi_gateway_alerts
-    - sensor.unifi_gateway_firmware_upgradable
-    - sensor.unifi_gateway_lan
-    - sensor.unifi_gateway_wan
-    - sensor.unifi_gateway_wlan
-    - sensor.unifi_gateway_www

@@ -1,4 +1,0 @@
-system:
-  name: System
-  entities:
-    - sensor.fritz_netmonitor

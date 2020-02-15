@@ -1,4 +1,0 @@
-auto:
-  name: Auto
-  entities:
-    - media_player.firetv

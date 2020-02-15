@@ -1,5 +1,0 @@
-  flur:
-    name: Flur
-    icon: mdi:floor-plan
-    entities:
-      - light.gateway_light_04cf8c97780c

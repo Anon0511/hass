@@ -2,7 +2,7 @@
 # Set input states when HA starts or states change
 ################################################################################
 
-- alias: Set state for air purifier input
+- alias: Set state for livingroom air purifier input
   trigger:
     - platform: homeassistant
       event: start
@@ -14,7 +14,7 @@
       entity_id: input_select.xiaomi_miio_device_mode
       option: '{{ states.fan.xiaomi_miio_device.attributes.mode }}'
 
-- alias: Set state for air purifier favorite level input
+- alias: Set state for livingroom air purifier favorite level input
   trigger:
     - platform: homeassistant
       event: start
@@ -30,7 +30,7 @@
 # Inputs
 ################################################################################
 
-- alias: Air purifier mode
+- alias: Livingroom air purifier mode
   trigger:
     platform: state
     entity_id: input_select.xiaomi_air_purifier_mode
@@ -40,7 +40,7 @@
         entity_id: fan.xiaomi_miio_device
         speed: '{{ states.input_select.xiaomi_air_purifier_mode.state }}'
 
-- alias: Air purifier favorite level
+- alias: Livingroom air purifier favorite level
   trigger:
     platform: state
     entity_id: input_number.xiaomi_air_purifier_favorite_level
@@ -55,7 +55,7 @@
 # Automatic control
 ################################################################################
 
-- alias: Turn off airpurifier
+- alias: Turn off livingroom airpurifier
   trigger:
     platform: numeric_state
     entity_id: fan.xiaomi_miio_device
@@ -70,7 +70,7 @@
     service: fan.turn_off
     entity_id: fan.xiaomi_miio_device
 
-- alias: Turn off airpurifier
+- alias: Turn on livingroom airpurifier
   trigger:
     platform: numeric_state
     entity_id: fan.xiaomi_miio_device
@@ -85,7 +85,7 @@
     service: fan.turn_on
     entity_id: fan.xiaomi_miio_device
 
-- alias: Set favorite fan speed for airpurifier
+- alias: Set favorite fan speed for livingroom airpurifier
   trigger:
     platform: time_pattern
     seconds: '/5'

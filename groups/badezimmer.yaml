@@ -1,5 +1,0 @@
-badezimmer:
-  name: Badezimmer
-  entities:
-    - sensor.badezimmer_humidity
-    - sensor.badezimmer_humidity_2

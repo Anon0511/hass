@@ -1,7 +1,0 @@
-speedtest:
-  name: Speedtest
-  icon: mdi:access-point-network
-  entities:
-    - sensor.speedtest_download
-    - sensor.speedtest_ping
-    - sensor.speedtest_upload

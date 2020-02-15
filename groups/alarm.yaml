@@ -1,4 +1,0 @@
-alarm:
-  name: Alarm
-  entities:
-    - alarm_control_panel.alarm
