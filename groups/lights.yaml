@@ -1,0 +1,5 @@
+  lights:
+    name: Licht
+    icon: mdi:access-point-network
+    entities:
+      - group.all_lights

@@ -1,0 +1,5 @@
+wlan:
+  name: WLAN-Geräte
+  icon: mdi:access-point-network
+  entities:
+    - group.all_devices

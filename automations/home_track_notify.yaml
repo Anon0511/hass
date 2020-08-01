@@ -28,7 +28,10 @@
   condition:
     - condition: state
       entity_id: person.avo
-      state: home
+      state: 'home'
+    - condition: state
+      entity_id: person.anon
+      state: 'not_home'
   action:
     service: notify.notify_telegram_anon
     data:

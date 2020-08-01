@@ -1,0 +1,6 @@
+sensor:
+  name: Sensoren
+  entities:
+    - binary_sensor.balkon_ture
+    - binary_sensor.balkon_fenster
+    - binary_sensor.eingangsture

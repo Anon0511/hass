@@ -1,3 +1,0 @@
-host: pi.hole
-ssl: true
-verify_ssl: false

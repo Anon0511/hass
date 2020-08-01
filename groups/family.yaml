@@ -1,0 +1,6 @@
+family:
+  name: Familie
+  icon: mdi:account-box
+  entities:
+    - person.anon
+    - person.avo

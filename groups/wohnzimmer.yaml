@@ -1,0 +1,19 @@
+wohnzimmer:
+  name: Wohnzimmer
+  icon: mdi:sofa
+  entities:
+    - media_player.wohnzimmer_tv
+    - media_player.nvidia_shield
+    - light.wohnzimmer_gross
+    - light.schrankbeleuchtung
+    - fan.xiaomi_miio_device
+    - sensor.wohnzimmer_airpurifier_humidity
+    - sensor.wohnzimmer_airpurifier_aqi
+    - sensor.wohnzimmer_airpurifier_temp
+    - sensor.wohnzimmer_airpurifier_mode
+    - switch.anonpc
+    - switch.avopc
+    - switch.tv_strom
+    - switch.ladegerat
+    - switch.darkmode
+    - switch.lightmode

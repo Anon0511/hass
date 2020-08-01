@@ -1,8 +1,9 @@
 ssl_certificate: /config/fullchain.pem
 ssl_key: /config/privkey.pem
-base_url: !secret base_url
 trusted_proxies:
-  - 172.20.0.10
+  - 172.20.0.0/24
+  - 192.168.1.10
+  - 192.168.1.1
 use_x_forwarded_for: true
 ip_ban_enabled: true
 login_attempts_threshold: 5

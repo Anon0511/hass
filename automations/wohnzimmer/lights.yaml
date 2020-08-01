@@ -110,8 +110,8 @@
       state: 'on'
     - condition: state
       entity_id: switch.lightmode
-      state: 'off'
+      state: 'on'
   action:
     - service: scene.turn_on
-      entity_id: scene.wohnzimmer_light
+      entity_id: scene.wohnzimmer_normal
 

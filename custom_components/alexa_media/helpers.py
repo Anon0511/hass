@@ -9,13 +9,14 @@ https://community.home-assistant.io/t/echo-devices-alexa-as-media-player-testers
 """
 
 import logging
-from typing import Any, Callable, List, Text
+from typing import Any, Callable, List, Optional, Text
 
-from alexapy import AlexapyLoginError, hide_email
+from alexapy import AlexapyLoginCloseRequested, AlexapyLoginError, hide_email
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_component import EntityComponent
 
 from . import DATA_ALEXAMEDIA
+from .const import EXCEPTION_TEMPLATE
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -24,10 +25,12 @@ async def add_devices(
     account: Text,
     devices: List[EntityComponent],
     add_devices_callback: Callable,
-    include_filter: List[Text] = [],
-    exclude_filter: List[Text] = [],
+    include_filter: Optional[List[Text]] = None,
+    exclude_filter: Optional[List[Text]] = None,
 ) -> bool:
     """Add devices using add_devices_callback."""
+    include_filter = [] or include_filter
+    exclude_filter = [] or exclude_filter
     new_devices = []
     for device in devices:
         if (
@@ -53,10 +56,12 @@ async def add_devices(
                 _LOGGER.debug(
                     "%s: Unable to add devices: %s : %s", account, devices, message
                 )
-        except BaseException as ex:
-            template = "An exception of type {0} occurred." " Arguments:\n{1!r}"
-            message = template.format(type(ex).__name__, ex.args)
-            _LOGGER.debug("%s: Unable to add devices: %s", account, message)
+        except BaseException as ex:  # pylint: disable=broad-except
+            _LOGGER.debug(
+                "%s: Unable to add devices: %s",
+                account,
+                EXCEPTION_TEMPLATE.format(type(ex).__name__, ex.args),
+            )
     else:
         return True
     return False
@@ -112,13 +117,11 @@ def retry_async(
                 except Exception as ex:  # pylint: disable=broad-except
                     if not catch_exceptions:
                         raise
-                    template = "An exception of type {0} occurred." " Arguments:\n{1!r}"
-                    message = template.format(type(ex).__name__, ex.args)
                     _LOGGER.debug(
                         "%s.%s: failure caught due to exception: %s",
                         func.__module__[func.__module__.find(".") + 1 :],
                         func.__name__,
-                        message,
+                        EXCEPTION_TEMPLATE.format(type(ex).__name__, ex.args),
                     )
                 _LOGGER.debug(
                     "%s.%s: Try: %s/%s after waiting %s seconds result: %s",
@@ -142,16 +145,25 @@ def _catch_login_errors(func) -> Callable:
 
     @functools.wraps(func)
     async def wrapper(*args, **kwargs) -> Any:
+        instance = args[0]
+        result = None
+        if hasattr(instance, "check_login_changes"):
+            instance.check_login_changes()
         try:
             result = await func(*args, **kwargs)
-        except AlexapyLoginError as ex:  # pylint: disable=broad-except
-            template = "An exception of type {0} occurred." " Arguments:\n{1!r}"
-            message = template.format(type(ex).__name__, ex.args)
+        except AlexapyLoginCloseRequested:
+            _LOGGER.debug(
+                "%s.%s: Ignoring attempt to access Alexa after HA shutdown",
+                func.__module__[func.__module__.find(".") + 1 :],
+                func.__name__,
+            )
+            return None
+        except AlexapyLoginError as ex:
             _LOGGER.debug(
                 "%s.%s: detected bad login: %s",
                 func.__module__[func.__module__.find(".") + 1 :],
                 func.__name__,
-                message,
+                EXCEPTION_TEMPLATE.format(type(ex).__name__, ex.args),
             )
             instance = args[0]
             if hasattr(instance, "_login"):
@@ -168,8 +180,8 @@ def _catch_login_errors(func) -> Callable:
                     config_entry = hass.data[DATA_ALEXAMEDIA]["accounts"][email][
                         "config_entry"
                     ]
-                    callback = hass.data[DATA_ALEXAMEDIA]["accounts"][email][
-                        "setup_platform_callback"
+                    setup_alexa = hass.data[DATA_ALEXAMEDIA]["accounts"][email][
+                        "setup_alexa"
                     ]
                     test_login_status = hass.data[DATA_ALEXAMEDIA]["accounts"][email][
                         "test_login_status"
@@ -178,9 +190,39 @@ def _catch_login_errors(func) -> Callable:
                         "%s: Alexa API disconnected; attempting to relogin",
                         hide_email(email),
                     )
-                    await login.login_with_cookie()
-                    await test_login_status(hass, config_entry, login, callback)
+                    if login.status:
+                        await login.reset()
+                        await login.login()
+                        await test_login_status(hass, config_entry, login, setup_alexa)
             return None
         return result
 
     return wrapper
+
+
+def _existing_serials(hass, login_obj) -> List:
+    email: Text = login_obj.email
+    existing_serials = (
+        list(
+            hass.data[DATA_ALEXAMEDIA]["accounts"][email]["entities"][
+                "media_player"
+            ].keys()
+        )
+        if "entities" in (hass.data[DATA_ALEXAMEDIA]["accounts"][email])
+        else []
+    )
+    for serial in existing_serials:
+        device = hass.data[DATA_ALEXAMEDIA]["accounts"][email]["devices"][
+            "media_player"
+        ][serial]
+        if "appDeviceList" in device and device["appDeviceList"]:
+            apps = list(
+                map(
+                    lambda x: x["serialNumber"] if "serialNumber" in x else None,
+                    device["appDeviceList"],
+                )
+            )
+            # _LOGGER.debug("Combining %s with %s",
+            #               existing_serials, apps)
+            existing_serials = existing_serials + apps
+    return existing_serials

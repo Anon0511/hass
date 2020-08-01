@@ -2,3 +2,8 @@
   name: Schlafzimmer Airpurifier
   host: 192.168.1.32
   token: !secret schlafzimmer_airpurifier_token
+
+- platform: xiaomi_miio_fan
+  name: Xiaomi SmartMi Fan 2
+  host: 192.168.1.96
+  token: 6fabd74b076ff3aeed15bec44f011758
