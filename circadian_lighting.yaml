@@ -1,4 +1,4 @@
-min_colortemp: 2000
-max_colortemp: 4000
+min_colortemp: 2500
+max_colortemp: 5500
 #sunset_offset: -00:45:00
 interval: 30

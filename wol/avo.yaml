@@ -1,5 +1,5 @@
 - platform: wake_on_lan
   name: AvoPC
   mac: !secret avo_mac_address
-  host: 192.168.1.26
-  broadcast_address: 192.168.1.255
+  host: 10.10.0.52
+  broadcast_address: 10.10.255.255

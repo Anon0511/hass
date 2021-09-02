@@ -1,14 +1,22 @@
 - platform: androidtv
   name: FireTV
-#  device_class: firetv
-  host: 192.168.1.12
-#  adb_server_ip: 127.0.0.1
-#  adb_server_port: 5037
+  device_class: firetv
+  host: 10.10.1.120
   adbkey: "/config/adbkey"
+  get_sources: true
   apps:
-    "com.amazon.tv.launcher": "Launcher"
+    "com.amazon.tv.launcher": "Fire TV"
+    "com.amazon.tv.settings": "Fire TV Settings"
     "com.netflix.ninja": "Netflix"
     "com.google.android.youtube.tv": "Youtube"
     "com.plexapp.android": "Plex"
+    "com.amazon.avod": "Prime Video"
+    "APP_AMAZON_VIDEO": "Amazon Video"
+    "com.disney.disneyplus": "Disney+"
+    "APP_KODI": "Kodi"
+    "APP_NETFLIX": "Netflix"
+    "APP_PLEX": "Plex"
+    "APP_SPOTIFY": "Spotify"
+    "APP_TWITCH": "Twitch"
   turn_on_command: "input keyevent 3"
   turn_off_command: "input keyevent 223"

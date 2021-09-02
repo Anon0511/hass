@@ -1,8 +1,8 @@
 - alias: Humiditiy too low
   trigger:
     - platform: numeric_state
-      entity_id: sensor.airpurifier_humidity
-      below: 45
+      entity_id: sensor.wohnzimmer_airpurifier_humidity
+      below: 40
   condition:
     - condition: state
       entity_id: input_boolean.humidity
@@ -20,8 +20,8 @@
 - alias: Humiditiy ok
   trigger:
     - platform: numeric_state
-      entity_id: sensor.airpurifier_humidity
-      above: 55
+      entity_id: sensor.wohnzimmer_airpurifier_humidity
+      above: 40
   condition:
     - condition: state
       entity_id: input_boolean.humidity

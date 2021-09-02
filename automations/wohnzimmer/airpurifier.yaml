@@ -6,25 +6,21 @@
   trigger:
     - platform: homeassistant
       event: start
-    - platform: state
-      entity_id: sensor.xiaomi_miio_device_mode
   action:
     service: input_select.select_option
     data_template:
       entity_id: input_select.airpurifier_livingroom_mode
-      option: '{{ states.fan.xiaomi_miio_device.attributes.mode }}'
+      option: '{{ states.fan.wohnzimmer_airpurifier.attributes.mode }}'
 
 - alias: Set state for livingroom air purifier favorite level input
   trigger:
     - platform: homeassistant
       event: start
-    - platform: state
-      entity_id: sensor.xiaomi_miio_device_favorite_level
   action:
     service: input_number.set_value
     data_template:
       entity_id: input_number.airpurifier_livingroom_favorite_level
-      value: '{{ states.fan.xiaomi_miio_device.attributes.favorite_level | int }}'
+      value: '{{ states.fan.wohnzimmer_airpurifier.attributes.favorite_level | int }}'
 
 ################################################################################
 # Inputs
@@ -35,21 +31,10 @@
     platform: state
     entity_id: input_select.airpurifier_livingroom_mode
   action:
-    - service: fan.set_speed
+    - service: fan.set_preset_mode
       data_template:
-        entity_id: fan.xiaomi_miio_device
-        speed: '{{ states.input_select.airpurifier_mode.state }}'
-
-- alias: Livingroom air purifier favorite level
-  trigger:
-    platform: state
-    entity_id: input_number.airpurifier_livingroom_favorite_level
-  action:
-    - service: xiaomi_miio.fan_set_favorite_level
-      data_template:
-        entity_id: fan.xiaomi_miio_device
-        level: '{{ states.input_number.airpurifier_favorite_level.state | int }}'
-
+        entity_id: fan.wohnzimmer_airpurifier
+        preset_mode: '{{ states.input_select.airpurifier_mode.state }}'
 
 ################################################################################
 # Automatic control
@@ -58,76 +43,74 @@
 - alias: Turn off livingroom airpurifier
   trigger:
     platform: numeric_state
-    entity_id: fan.xiaomi_miio_device
-    value_template: "{{ states.fan.xiaomi_miio_device.attributes.aqi | int }}"
+    entity_id: fan.wohnzimmer_airpurifier
+    value_template: "{{ states('sensor.wohnzimmer_airpurifier_pm2_5') | int }}"
     below: 50
     for: '00:00:10'
   condition:
     - condition: state
-      entity_id: fan.xiaomi_miio_device
+      entity_id: fan.wohnzimmer_airpurifier
       state: 'on'
   action:
     service: fan.turn_off
-    entity_id: fan.xiaomi_miio_device
+    entity_id: fan.wohnzimmer_airpurifier
 
 - alias: Turn on livingroom airpurifier
   trigger:
     platform: numeric_state
-    entity_id: fan.xiaomi_miio_device
-    value_template: "{{ states.fan.xiaomi_miio_device.attributes.aqi | int }}"
+    entity_id: fan.wohnzimmer_airpurifier
+    value_template: "{{ states('sensor.wohnzimmer_airpurifier_pm2_5') | int }}"
     above: 50
     for: '00:00:10'
   condition:
     - condition: state
-      entity_id: fan.xiaomi_miio_device
+      entity_id: fan.wohnzimmer_airpurifier
       state: 'off'
   action:
     service: fan.turn_on
-    entity_id: fan.xiaomi_miio_device
+    entity_id: fan.wohnzimmer_airpurifier
 
 - alias: Set favorite fan speed for livingroom airpurifier
   trigger:
     platform: time_pattern
     seconds: '/30'
   action:
-    - service: fan.set_speed
-      entity_id: fan.xiaomi_miio_device
+    - service: fan.set_preset_mode
+      entity_id: fan.wohnzimmer_airpurifier
       data:
-        speed: favorite
-    - service: xiaomi_miio.fan_set_favorite_level
+        preset_mode: Favorite
+    - service: fan.set_percentage
       data_template:
-        entity_id: fan.xiaomi_miio_device
-        level: >
-            {% if states.fan.xiaomi_miio_device.attributes.aqi | int == 600 %}
-              12
-            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 500 %}
-              11
-            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 400 %}
+        entity_id: fan.wohnzimmer_airpurifier
+        percentage: >
+            {% if states('sensor.wohnzimmer_airpurifier_pm2_5') | int == 600 %}
+              100
+            {% elif states('sensor.wohnzimmer_airpurifier_pm2_5') | int > 500 %}
+              90
+            {% elif states('sensor.wohnzimmer_airpurifier_pm2_5') | int > 400 %}
+              80
+            {% elif states('sensor.wohnzimmer_airpurifier_pm2_5') | int > 350 %}
+              70
+            {% elif states('sensor.wohnzimmer_airpurifier_pm2_5') | int > 300 %}
+              60
+            {% elif states('sensor.wohnzimmer_airpurifier_pm2_5') | int > 230 %}
+              50
+            {% elif states('sensor.wohnzimmer_airpurifier_pm2_5') | int > 150 %}
+              40
+            {% elif states('sensor.wohnzimmer_airpurifier_pm2_5') | int > 125 %}
+              30
+            {% elif states('sensor.wohnzimmer_airpurifier_pm2_5') | int > 100 %}
+              20
+            {% elif states('sensor.wohnzimmer_airpurifier_pm2_5') | int > 50 %}
               10
-            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 350 %}
-              8
-            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 300 %}
-              7
-            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 230 %}
-              6
-            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 150 %}
-              5
-            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 125 %}
-              4
-            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 100 %}
-              3
-            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 75 %}
-              2
-            {% elif states.fan.xiaomi_miio_device.attributes.aqi | int > 50 %}
-              1
             {% else %}
               0
             {% endif %}
     - service: input_select.select_option
       data_template:
         entity_id: input_select.airpurifier_livingroom_mode
-        option: '{{ states.fan.xiaomi_miio_device.attributes.mode }}'
+        option: "{{ states('fan.wohnzimmer_airpurifier.attributes.mode') }}"
     - service: input_number.set_value
       data_template:
         entity_id: input_number.airpurifier_livingroom_favorite_level
-        value: '{{ states.fan.xiaomi_miio_device.attributes.favorite_level }}'
+        value: "{{ states('fan.wohnzimmer_airpurifier.attributes.favorite_level') }}"

@@ -1,5 +1,8 @@
 - platform: circadian_lighting
+  name: circadian_lighting
   disable_brightness_adjust: true
   lights_ct:
-    - light.wohnzimmer_klein
     - light.wohnzimmer_gross
+    - light.schlafzimmer_klein
+  lights_brightness:
+    - light.schrankbeleuchtung

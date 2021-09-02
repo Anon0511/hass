@@ -1,4 +1,0 @@
-- platform: xiaomi_miio
-  name: Wohnzimmer Airpurifier
-  host: 192.168.1.28
-  token: !secret wohnzimmer_airpurifier_token

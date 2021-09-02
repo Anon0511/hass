@@ -1,7 +1,7 @@
 - platform: androidtv
   name: Nvidia Shield
 #  device_class: androidtv
-  host: 192.168.1.17
+  host: 10.10.1.122
 #  adb_server_ip: 127.0.0.1
 #  adb_server_port: 5037
   adbkey: "/config/adbkey"
@@ -15,22 +15,7 @@
     "com.spotify.tv.android": "Spotify"
     "tv.twitch.android.app": "Twitch"
 
-#- platform: webostv
-#  host: 192.168.1.16
-#  name: LG OLED
-#  filename: webostv.conf
-#  timeout: 13
-#  turn_on_action:
-#    service: wake_on_lan.send_magic_packet
-#    data:
-#      mac: !secret lg_oled_mac
-#  customize:
-#    sources:
-#      - hdmi1
-#      - hdmi2
-#      - hdmi3
-#      - hdmi4
-#      - livetv
-#      - netflix
-#      - plex
-#      - youtube
+- platform: musiccast_yamaha
+  host: 10.10.1.130
+  port: 5009
+

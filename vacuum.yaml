@@ -1,4 +1,0 @@
-- platform: xiaomi_miio
-  name: roborock
-  host: 192.168.1.9
-  token: !secret vacuum_token

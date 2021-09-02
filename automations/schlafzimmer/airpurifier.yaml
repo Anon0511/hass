@@ -6,8 +6,6 @@
   trigger:
     - platform: homeassistant
       event: start
-    - platform: state
-      entity_id: sensor.schlafzimmer_airpurifier_mode
   action:
     service: input_select.select_option
     data_template:
@@ -18,8 +16,6 @@
   trigger:
     - platform: homeassistant
       event: start
-    - platform: state
-      entity_id: sensor.schlafzimmer_airpurifier_favorite_level
   action:
     service: input_number.set_value
     data_template:
@@ -30,26 +26,15 @@
 # Inputs
 ################################################################################
 
-- alias: Bedroom air purifier mode
+- alias: Livingroom air purifier mode
   trigger:
     platform: state
     entity_id: input_select.airpurifier_bedroom_mode
   action:
-    - service: fan.set_speed
+    - service: fan.set_preset_mode
       data_template:
         entity_id: fan.schlafzimmer_airpurifier
-        speed: '{{ states.input_select.airpurifier_mode.state }}'
-
-- alias: Bedroom air purifier favorite level
-  trigger:
-    platform: state
-    entity_id: input_number.airpurifier_bedroom_favorite_level
-  action:
-    - service: xiaomi_miio.fan_set_favorite_level
-      data_template:
-        entity_id: fan.schlafzimmer_airpurifier
-        level: '{{ states.input_number.airpurifier_favorite_level.state | int }}'
-
+        preset_mode: '{{ states.input_select.airpurifier_mode.state }}'
 
 ################################################################################
 # Automatic control
@@ -59,7 +44,7 @@
   trigger:
     platform: numeric_state
     entity_id: fan.schlafzimmer_airpurifier
-    value_template: "{{ states.fan.schlafzimmer_airpurifier.attributes.aqi | int }}"
+    value_template: "{{ states('sensor.schlafzimmer_airpurifier_pm2_5') | int }}"
     below: 50
     for: '00:00:10'
   condition:
@@ -74,7 +59,7 @@
   trigger:
     platform: numeric_state
     entity_id: fan.schlafzimmer_airpurifier
-    value_template: "{{ states.fan.schlafzimmer_airpurifier.attributes.aqi | int }}"
+    value_template: "{{ states('sensor.schlafzimmer_airpurifier_pm2_5') | int }}"
     above: 50
     for: '00:00:10'
   condition:
@@ -85,91 +70,47 @@
     service: fan.turn_on
     entity_id: fan.schlafzimmer_airpurifier
 
-- alias: Set favorite fan speed for bedroom airpurifier day
+- alias: Set favorite fan speed for bedroom airpurifier
   trigger:
     platform: time_pattern
     seconds: '/30'
-  condition:
-    - condition: time
-      after: '08:00'
-      before: '22:00'
   action:
-    - service: fan.set_speed
+    - service: fan.set_preset_mode
       entity_id: fan.schlafzimmer_airpurifier
       data:
-        speed: favorite
-    - service: xiaomi_miio.fan_set_favorite_level
+        preset_mode: Favorite
+    - service: fan.set_percentage
       data_template:
         entity_id: fan.schlafzimmer_airpurifier
-        level: >
-            {% if states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 500 %}
-              8
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 400 %}
-              7
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 300 %}
-              6
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 250 %}
-              5
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 200 %}
-              4
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 150 %}
-              3
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 100 %}
-              2
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 50 %}
-              1
+        percentage: >
+            {% if states('sensor.schlafzimmer_airpurifier_pm2_5') | int == 600 %}
+              100
+            {% elif states('sensor.schlafzimmer_airpurifier_pm2_5') | int > 500 %}
+              90
+            {% elif states('sensor.schlafzimmer_airpurifier_pm2_5') | int > 400 %}
+              80
+            {% elif states('sensor.schlafzimmer_airpurifier_pm2_5') | int > 350 %}
+              70
+            {% elif states('sensor.schlafzimmer_airpurifier_pm2_5') | int > 300 %}
+              60
+            {% elif states('sensor.schlafzimmer_airpurifier_pm2_5') | int > 230 %}
+              50
+            {% elif states('sensor.schlafzimmer_airpurifier_pm2_5') | int > 150 %}
+              40
+            {% elif states('sensor.schlafzimmer_airpurifier_pm2_5') | int > 125 %}
+              30
+            {% elif states('sensor.schlafzimmer_airpurifier_pm2_5') | int > 100 %}
+              20
+            {% elif states('sensor.schlafzimmer_airpurifier_pm2_5') | int > 50 %}
+              10
             {% else %}
               0
             {% endif %}
     - service: input_select.select_option
       data_template:
         entity_id: input_select.airpurifier_bedroom_mode
-        option: '{{ states.fan.schlafzimmer_airpurifier.attributes.mode }}'
+        option: "{{ states('fan.schlafzimmer_airpurifier.attributes.mode') }}"
     - service: input_number.set_value
       data_template:
         entity_id: input_number.airpurifier_bedroom_favorite_level
-        value: '{{ states.fan.schlafzimmer_airpurifier.attributes.favorite_level }}'
-
-- alias: Set favorite fan speed for bedroom airpurifier night
-  trigger:
-    platform: time_pattern
-    seconds: '/30'
-  condition:
-    - condition: state
-      entity_id: group.family
-      state: 'home'
-    - condition: time
-      after: '22:00'
-      before: '08:00'
-  action:
-    - service: fan.set_speed
-      entity_id: fan.schlafzimmer_airpurifier
-      data:
-        speed: favorite
-    - service: xiaomi_miio.fan_set_favorite_level
-      data_template:
-        entity_id: fan.schlafzimmer_airpurifier
-        level: >
-            {% if states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 600 %}
-              6
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 500 %}
-              5
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 400 %}
-              4
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 250 %}
-              3
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 150 %}
-              2
-            {% elif states.fan.schlafzimmer_airpurifier.attributes.aqi | int > 50 %}
-              1
-            {% else %}
-              0
-            {% endif %}
-    - service: input_select.select_option
-      data_template:
-        entity_id: input_select.airpurifier_bedroom_mode
-        option: '{{ states.fan.schlafzimmer_airpurifier.attributes.mode }}'
-    - service: input_number.set_value
-      data_template:
-        entity_id: input_number.airpurifier_bedroom_favorite_level
-        value: '{{ states.fan.schlafzimmer_airpurifier.attributes.favorite_level }}'
+        value: "{{ states('fan.schlafzimmer_airpurifier.attributes.favorite_level') }}"

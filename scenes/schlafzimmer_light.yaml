@@ -9,3 +9,4 @@
     light.schlafzimmer_klein:
       state: on
       brightness: 126
+

@@ -1,5 +1,6 @@
 # pylint: disable=missing-class-docstring,missing-module-docstring,missing-function-docstring,no-member, attribute-defined-outside-init
 from abc import ABC
+
 from custom_components.hacs.validate import async_run_repository_checks
 
 
@@ -10,9 +11,7 @@ class RepositoryMethodPreRegistration(ABC):
 
 class RepositoryMethodRegistration(ABC):
     async def registration(self, ref=None) -> None:
-        self.logger.warning(
-            "'registration' is deprecated, use 'async_registration' instead"
-        )
+        self.logger.warning("'registration' is deprecated, use 'async_registration' instead")
         await self.async_registration(ref)
 
     async def async_registration(self, ref=None) -> None:

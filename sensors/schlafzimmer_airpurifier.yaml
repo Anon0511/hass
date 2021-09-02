@@ -1,32 +1,5 @@
-- platform: template
-  sensors:
-    schlafzimmer_airpurifier_temp:
-      friendly_name: "Schlafzimmer Temperatur"
-      value_template: "{{ states.fan.schlafzimmer_airpurifier.attributes.temperature }}"
-      unit_of_measurement: "°C"
+template:
+  - sensor:
+      - name: "schlafzimmer_airpurifier_mode"
+        state: "states('fan.schlafzimmer_airpurifier.attributes.mode')"
 
-- platform: template
-  sensors:
-    schlafzimmer_airpurifier_humidity:
-      friendly_name: "Schlafzimmer Luftfeuchte"
-      value_template: "{{ states.fan.schlafzimmer_airpurifier.attributes.humidity }}"
-      unit_of_measurement: "%"
-
-- platform: template
-  sensors:
-    schlafzimmer_airpurifier_aqi:
-      friendly_name: "Schlafzimmer Feinstaub"
-      value_template: "{{ states.fan.schlafzimmer_airpurifier.attributes.aqi }}"
-      unit_of_measurement: "PM2.5"
-
-- platform: template
-  sensors:
-    schlafzimmer_airpurifier_mode:
-      friendly_name: "Schlafzimmer Luftreiniger Modus"
-      value_template: "{{ states.fan.schlafzimmer_airpurifier.attributes.mode }}"
-
-- platform: template
-  sensors:
-    schlafzimmer_airpurifier_illuminance:
-      friendly_name: "Schlafzimmer Luftreiniger Illuminance"
-      value_template: "{{ states.fan.schlafzimmer_airpurifier.attributes.illuminance }}"

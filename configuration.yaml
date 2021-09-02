@@ -1,39 +1,24 @@
 homeassistant:
-  # Name of the location where Home Assistant is running
-  name: Home
-  # Location required to calculate the time the sun rises and sets
-  latitude: !secret latitude
-  longitude: !secret longitude
-  # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: !secret elevation
-  # metric for Metric, imperial for Imperial
-  unit_system: metric
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: !secret time_zone
-  # Customization file
   customize: !include customize.yaml
-  #  auth_providers:
-  #    - type: legacy_api_password
-  #      api_password: !secret http_password
-  external_url: !secret external_url
-  internal_url: !secret internal_url
 
 alarm_control_panel: !include alarm.yaml
 alexa: !include alexa.yaml
 api:
 automation: !include_dir_merge_list automations/
+binary_sensor: !include binary_sensor.yaml
+breaking_changes:
 bmw_connected_drive: !include bmw.yaml
 circadian_lighting: !include circadian_lighting.yaml
-coinbase: !include coinbase.yaml
 default_config:
 device_tracker: !include_dir_merge_list devices/
-discovery: !include discovery.yaml
+discovery: #!include discovery.yaml
 fan: !include_dir_merge_list fans/
 frontend: !include frontend.yaml
 group: !include_dir_merge_named groups/
 hacs: !include hacs.yaml
 http: !include http.yaml
 history:
+#homekit: !include homekit.yaml
 input_boolean: !include_dir_named input_boolean/
 input_number: !include_dir_named input_number/
 input_select: !include_dir_named input_select/
@@ -50,20 +35,15 @@ scene: !include_dir_merge_list scenes/
 script: !include_dir_named scripts/
 sensor: !include_dir_merge_list sensors/
 shell_command: !include shell_commands.yaml
-speedtestdotnet: !include speedtest.yaml
 spotify: !include spotify.yaml
 sun:
 switch: !include_dir_merge_list switches/
 system_health:
 telegram_bot: !include telegram_bot.yaml
 tts: !include tts.yaml
-#unifi: !include unifi.yaml
 updater:
-vacuum: !include vacuum.yaml
 wake_on_lan: !include_dir_merge_list wol/
 weather: !include weather.yaml
 webostv: !include webostv.yaml
-#xiaomi_aqara: !include xiaomi_gateway.yaml
 yeelight: !include yeelights.yaml
-#zha: !include zha.yaml
 zone: !include zones.yaml

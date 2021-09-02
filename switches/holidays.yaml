@@ -1,0 +1,11 @@
+- platform: template
+  switches:
+    holidays:
+      value_template: '{{ states("input_boolean.holidays") }}'
+      friendly_name: 'Holidays'
+      turn_on:
+        - service: input_boolean.turn_on
+          entity_id: input_boolean.holidays
+      turn_off:
+        - service: input_boolean.turn_off
+          entity_id: input_boolean.holidays

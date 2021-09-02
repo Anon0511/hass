@@ -23,3 +23,10 @@
     light.wohnzimmer_gross:
       state: on
       brightness: 126
+
+- name: Wohnzimmer homeoffice
+  entities:
+    light.wohnzimmer_gross:
+      state: on
+      brightness: 126
+

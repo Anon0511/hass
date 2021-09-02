@@ -1,4 +1,2 @@
 ignore:
-  - yeelight
-  - deconz
   - homekit

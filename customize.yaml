@@ -32,3 +32,9 @@ group.all_switches:
   friendly_name: Switches
 light.schlafzimmer:
   friendly_name: Bett LED
+light.wohnzimmer_gross:
+  Name: Wohnzimmer Gross
+media_player.unknown_main:
+  friendly_name: Yamaha Musiccast
+media_player.wohnzimmer_main:
+  friendly_name: Yamaha Musiccast

@@ -1,4 +1,7 @@
+"""Shared HACS elements."""
 import os
+
+from .base import HacsBase
 
 SHARE = {
     "hacs": None,
@@ -9,14 +12,14 @@ SHARE = {
 }
 
 
-def get_hacs():
+def get_hacs() -> HacsBase:
     if SHARE["hacs"] is None:
-        from custom_components.hacs.hacsbase.hacs import Hacs
+        from custom_components.hacs.hacsbase.hacs import Hacs as Legacy
 
-        _hacs = Hacs()
+        _hacs = Legacy()
 
         if not "PYTEST" in os.environ and "GITHUB_ACTION" in os.environ:
-            _hacs.action = True
+            _hacs.system.action = True
 
         SHARE["hacs"] = _hacs
 
@@ -53,9 +56,7 @@ def get_removed(repository):
         removed_repo.repository = repository
         SHARE["removed_repositories"].append(removed_repo)
     filter_repos = [
-        x
-        for x in SHARE["removed_repositories"]
-        if x.repository.lower() == repository.lower()
+        x for x in SHARE["removed_repositories"] if x.repository.lower() == repository.lower()
     ]
 
     return filter_repos.pop() or None

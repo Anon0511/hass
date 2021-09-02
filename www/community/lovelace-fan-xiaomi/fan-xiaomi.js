@@ -1,10 +1,60 @@
+const LitElement = Object.getPrototypeOf(
+    customElements.get("ha-panel-lovelace")
+);
+const html = LitElement.prototype.html;
+const includeDomains = ["fan"];
+
+
+function fireEvent(ev, detail, entity = null) {
+    ev = new Event(ev, {
+        bubbles: true,
+        cancelable: false,
+        composed: true,
+    });
+    ev.detail = detail || {};
+    if (entity) {
+        entity.dispatchEvent(ev);
+    } else {
+        var root = lovelace_view();
+        if (root) root.dispatchEvent(ev);
+    }
+}
+
+function moreInfo(entity, large = false) {
+    const root =
+        document.querySelector("hc-main") ||
+        document.querySelector("home-assistant");
+    fireEvent("hass-more-info", { entityId: entity }, root);
+    const el = root._moreInfoEl;
+    el.large = large;
+    return el;
+}
+
 class FanXiaomi extends HTMLElement {
+    
+    static getConfigElement() {
+        return document.createElement("content-card-editor");
+    }
+    
+    static getStubConfig() {
+        return { entity: "fan.fan", name: "Xiaomi Fan", platform: "xiaomi_miio_airpurifier", disable_animation: false }
+    }
+    
+    supportedAttributes = {
+        angle: true, childLock: true, timer: true, rotationAngle: true, speedLevels: 4, natural_speed: true, 
+            natural_speed_reporting: true, supported_angles: [30, 60, 90, 120], sleep_mode: false, led: false
+    }
+
     set hass(hass) {
         const entityId = this.config.entity;
-        const style = this.config.style || '';
+        //const style = this.config.style || '';
         const myname = this.config.name;
         const state = hass.states[entityId];
         const ui = this.getUI();
+        const platform = this.config.platform || 'xiaomi_miio_fan';
+        const use_standard_speeds = this.config.use_standard_speeds || false;
+        const force_sleep_mode_support = this.config.force_sleep_mode_support || false;
+        
 
         if (!this.card){
             const card = document.createElement('ha-card');
@@ -12,16 +62,55 @@ class FanXiaomi extends HTMLElement {
             card.appendChild(ui)
 
             // Check if fan is disconnected
-            if(state === undefined){
+            if(state === undefined || state.state === 'unavailable'){
                 card.classList.add('offline');
                 this.card = card;
                 this.appendChild(card);
-                ui.querySelector('.var-title').textContent = this.config.name + ' (Disconnected)';
+                ui.querySelector('.var-title').textContent = (this.config.name || '') + ' (Disconnected)';
                 return;
             }
         }
-
+        
+        if (state.state === 'unavailable'){
+            ui.querySelector('.var-title').textContent = (this.config.name || '') + ' (Disconnected)';
+            return;
+        }
+        
         const attrs = state.attributes;
+
+        if (['dmaker.fan.1c'].includes(attrs['model'])){
+            this.supportedAttributes.angle = false;
+            this.supportedAttributes.childLock = true;
+            this.supportedAttributes.rotationAngle = false;
+            this.supportedAttributes.speedLevels = 3;
+            this.supportedAttributes.natural_speed = true;
+            this.supportedAttributes.natural_speed_reporting = false;
+        }
+        if (['dmaker.fan.p15', 'dmaker.fan.p11', 'dmaker.fan.p10', 'dmaker.fan.p5'].includes(attrs['model'])){
+            this.supportedAttributes.natural_speed_reporting = false;
+            this.supportedAttributes.supported_angles = [30, 60, 90, 120, 140];
+            //this.supportedAttributes.led = true;
+        }
+        if (['dmaker.fan.p9'].includes(attrs['model'])){
+            this.supportedAttributes.natural_speed_reporting = false;
+            this.supportedAttributes.supported_angles = [30, 60, 90, 120, 150];
+        }
+        if (['leshow.fan.ss4'].includes(attrs['model'])){
+            this.supportedAttributes.angle = false;
+            this.supportedAttributes.childLock = false;
+            this.supportedAttributes.rotationAngle = false;
+            this.supportedAttributes.natural_speed = false;
+            this.supportedAttributes.natural_speed_reporting = false;
+            this.supportedAttributes.sleep_mode = true;
+        }
+
+        //trick to support of 'any' fan
+        if (use_standard_speeds) {
+            this.supportedAttributes.speedList = ['low', 'medium', 'high']
+        }
+        if (force_sleep_mode_support) {
+            this.supportedAttributes.sleep_mode = true;
+        }
 
         if (!this.card) {
             const card = document.createElement('ha-card');
@@ -61,7 +150,7 @@ class FanXiaomi extends HTMLElement {
                     });
                 }
             }
-            
+
             // Power toggle event bindings
             ui.querySelector('.c1').onclick = () => {
                 this.log('Toggle')
@@ -74,28 +163,26 @@ class FanXiaomi extends HTMLElement {
             ui.querySelector('.var-speed').onclick = () => {
                 this.log('Speed Level')
                 if (ui.querySelector('.fanbox').classList.contains('active')) {
-                    let blades = ui.querySelector('.fanbox .blades')
+                    //let blades = ui.querySelector('.fanbox .blades')
                     let u = ui.querySelector('.var-speed')
-                    let iconSpan = u.querySelector('.icon-waper')
+                    //let iconSpan = u.querySelector('.icon-waper')
                     let icon = u.querySelector('.icon-waper > ha-icon').getAttribute('icon')
                     let newSpeedLevel
-                    if (icon === "mdi:numeric-1-box-outline") {
-                        newSpeedLevel = 2
-                    } else if (icon === "mdi:numeric-2-box-outline") {
-                        newSpeedLevel = 3
-                    } else if (icon === "mdi:numeric-3-box-outline") {
-                        newSpeedLevel = 4
-                    } else if (icon === "mdi:numeric-4-box-outline") {
-                        newSpeedLevel = 1
-                    } else {
-                        this.error(`Error setting fan speed. icon = ${icon}`)
-                        newSpeedLevel = 1
-                        this.error(`Defaulting to: ${newSpeedLevel}`)
-                    }
-                    iconSpan.innerHTML = `<ha-icon icon="mdi:numeric-${newSpeedLevel}-box-outline"></ha-icon>`
-                    blades.className = `blades level${newSpeedLevel}`
+                    let newSpeed
 
-                    let newSpeed = `Level ${newSpeedLevel}`
+                    let maskSpeedLevel = /mdi:numeric-(\d)-box-outline/g
+                    let speedLevelMatch = maskSpeedLevel.exec(icon)
+                    let speedLevel = parseInt(speedLevelMatch ? speedLevelMatch[1] : 1)
+                    if (use_standard_speeds) {
+                        newSpeedLevel = this.supportedAttributes.speedList[(speedLevel < 
+                            this.supportedAttributes.speedList.length ? speedLevel: 0)]
+                        newSpeed = newSpeedLevel
+                    } else {
+                        newSpeedLevel = (speedLevel < this.supportedAttributes.speedLevels ? speedLevel+1: 1)
+                        newSpeed = `Level ${newSpeedLevel}`
+                    }
+                    
+
                     this.log(`Set speed to: ${newSpeed}`)
                     hass.callService('fan', 'set_speed', {
                         entity_id: entityId,
@@ -113,24 +200,16 @@ class FanXiaomi extends HTMLElement {
                         let u = ui.querySelector('.var-angle')
                         let oldAngleText = u.innerHTML
                         let newAngle
-                        if (oldAngleText === '30') {
-                            newAngle = 60
-                        } else if (oldAngleText === '60') {
-                            newAngle = 90
-                        } else if (oldAngleText === '90') {
-                            newAngle = 120
-                        } else if (oldAngleText === '120') {
-                            newAngle = 30
+                        let curAngleIndex = this.supportedAttributes.supported_angles.indexOf(parseInt(oldAngleText,10))
+                        if (curAngleIndex >= 0 && curAngleIndex < this.supportedAttributes.supported_angles.length-1) {
+                            newAngle = this.supportedAttributes.supported_angles[curAngleIndex+1]
                         } else {
-                            this.error(`Error setting fan angle. oldAngleText = ${oldAngleText}`)
-                            newAngle = 30
-                            this.error(`Defaulting to ${newAngle}`)
+                            newAngle = this.supportedAttributes.supported_angles[0]
                         }
-                        u.innerHTML = newAngle
                         b.classList.add('loading')
-                        
+
                         this.log(`Set angle to: ${newAngle}`)
-                        hass.callService('fan', 'xiaomi_miio_set_oscillation_angle', {
+                        hass.callService(platform, 'fan_set_oscillation_angle', {
                             entity_id: entityId,
                             angle: newAngle
                         });
@@ -172,36 +251,25 @@ class FanXiaomi extends HTMLElement {
                             newTimer = 420
                         } else if (currTimer < 479) {
                             newTimer = 480
+                        } else if (currTimer = 480) {
+                            newTimer = 0
                         } else {
                             this.error(`Error setting timer. u.textContent = ${u.textContent}; currTimer = ${currTimer}`)
                             newTimer = 60
                             this.error(`Defaulting to ${newTimer}`)
                         }
 
-                        // Update timer display
-                        let hours = Math.floor(newTimer / 60)
-                        let mins = Math.floor(newTimer % 60)
-                        let timer_display
-                        if(hours) {
-                            if(mins) {
-                                timer_display = `${hours}h ${mins}m`
-                            } else {
-                                timer_display = `${hours}h`
-                            }
-                        } else {
-                            timer_display = `${mins}m`
-                        }
-                        u.textContent = timer_display
                         b.classList.add('loading')
-                        
+
                         this.log(`Set timer to: ${newTimer}`)
-                        hass.callService('fan', 'xiaomi_miio_set_delay_off', {
+                        hass.callService(platform, 'fan_set_delay_off', {
                             entity_id: entityId,
                             delay_off_countdown: newTimer
                         });
                     }
                 }
             }
+            
 
             // Child lock event bindings
             ui.querySelector('.button-childlock').onclick = () => {
@@ -211,18 +279,16 @@ class FanXiaomi extends HTMLElement {
                     if (!b.classList.contains('loading')) {
                         let u = ui.querySelector('.var-childlock')
                         let oldChildLockState = u.innerHTML
-                        let newAngle
                         if (oldChildLockState === 'On') {
                             this.log(`Set child lock to: Off`)
-                            hass.callService('fan', 'xiaomi_miio_set_child_lock_off')
-                            u.innerHTML = 'Off'
+                            hass.callService(platform, 'fan_set_child_lock_off')
                         } else if (oldChildLockState === 'Off') {
                             this.log(`Set child lock to: On`)
-                            hass.callService('fan', 'xiaomi_miio_set_child_lock_on')
-                            u.innerHTML = 'On'
+                            hass.callService(platform, 'fan_set_child_lock_on')
                         } else {
                             this.error(`Error setting child lock. oldChildLockState = ${oldChildLockState}`)
                             this.error(`Defaulting to Off`)
+                            hass.callService(platform, 'fan_set_child_lock_off')
                             u.innerHTML = 'Off'
                         }
                         b.classList.add('loading')
@@ -237,14 +303,52 @@ class FanXiaomi extends HTMLElement {
                     let u = ui.querySelector('.var-natural')
                     if (u.classList.contains('active') === false) {
                         this.log(`Set natural mode to: On`)
-                        u.classList.add('active')
-                        hass.callService('fan', 'xiaomi_miio_set_natural_mode_on', {
+                        hass.callService(platform, 'fan_set_natural_mode_on', {
                             entity_id: entityId
                         });
                     } else {
                         this.log(`Set natural mode to: Off`)
-                        u.classList.remove('active')
-                        hass.callService('fan', 'xiaomi_miio_set_natural_mode_off', {
+                        hass.callService(platform, 'fan_set_natural_mode_off', {
+                            entity_id: entityId
+                        });
+                    }
+                }
+            }
+
+            // Sleep mode event bindings
+            ui.querySelector('.var-sleep').onclick = () => {
+                this.log('Sleep')
+                if (ui.querySelector('.fanbox').classList.contains('active')) {
+                    let u = ui.querySelector('.var-sleep')
+                    if (u.classList.contains('active') === false) {
+                        this.log(`Set sleep mode to: On`)
+                        hass.callService('fan', 'set_percentage', {
+                            entity_id: entityId,
+                            percentage: 1
+                        });
+                    } else {
+                        this.log(`Set sleep mode to: Off`)
+                        hass.callService('fan', 'set_speed', {
+                            entity_id: entityId,
+                            speed: 'low'
+                        });
+                    }
+                }
+            }
+
+            // LED mode event bindings
+            ui.querySelector('.var-led').onclick = () => {
+                this.log('Led')
+                if (ui.querySelector('.fanbox').classList.contains('active')) {
+                    let u = ui.querySelector('.var-led')
+                    if (u.classList.contains('active') === false) {
+                        this.log(`Set led mode to: On`)
+                        hass.callService(platform, 'fan_set_led_on', {
+                            entity_id: entityId
+                        });
+                    } else {
+                        this.log(`Set led mode to: Off`)
+                        hass.callService(platform, 'fan_set_led_off', {
                             entity_id: entityId
                         });
                     }
@@ -258,14 +362,12 @@ class FanXiaomi extends HTMLElement {
                     let u = ui.querySelector('.var-oscillating')
                     if (u.classList.contains('active') === false) {
                         this.log(`Set oscillation to: On`)
-                        u.classList.add('active')
                         hass.callService('fan', 'oscillate', {
                             entity_id: entityId,
                             oscillating: true
                         });
                     } else {
                         this.log(`Set oscillation to: Off`)
-                        u.classList.remove('active')
                         hass.callService('fan', 'oscillate', {
                             entity_id: entityId,
                             oscillating: false
@@ -273,10 +375,26 @@ class FanXiaomi extends HTMLElement {
                     }
                 }
             }
+            
+            //Fan title works as on/off button when animation is disabled
+            if (this.config.disable_animation) {
+                ui.querySelector('.var-title').onclick = () => {
+                    this.log('Toggle')
+                    hass.callService('fan', 'toggle', {
+                        entity_id: entityId
+                    });
+                }
+            } else {
+                ui.querySelector('.var-title').onclick = () => {
+                    this.log('Dialog box')
+                    moreInfo(entityId);
+                }
+            }
+            /*
             ui.querySelector('.var-title').onclick = () => {
                 this.log('Dialog box')
                 card.querySelector('.dialog').style.display = 'block'
-            }
+            }*/
             this.card = card;
             this.appendChild(card);
         }
@@ -286,6 +404,7 @@ class FanXiaomi extends HTMLElement {
             title: myname || attrs['friendly_name'],
             natural_speed: attrs['natural_speed'],
             direct_speed: attrs['direct_speed'],
+            raw_speed: attrs['raw_speed'],
             state: state.state,
             child_lock: attrs['child_lock'],
             oscillating: attrs['oscillating'],
@@ -295,6 +414,7 @@ class FanXiaomi extends HTMLElement {
             speed: attrs['speed'],
             mode: attrs['mode'],
             model: attrs['model'],
+            led: attrs['led']
         })
     }
 
@@ -345,7 +465,6 @@ p{margin:0;padding:0}
 .attr-row .attr{width:100%;padding-bottom:2px}
 .attr-row .attr-title{font-size:9pt}
 .attr-row .attr-value{font-size:14px}
-.attr-row .attr:nth-child(2){border-right:1px solid #01be9e;border-left:1px solid #01be9e}
 .op-row{display:flex;padding:10px;border-top:3px solid #717376!important}
 .op-row .op{width:100%}
 .op-row .op button{outline:0;border:none;background:0 0;cursor:pointer}
@@ -419,10 +538,10 @@ to{transform:perspective(10em) rotateY(40deg)}
 </span>
 </div>
 </div>
-<div class="attr-row">
+<div class="attr-row upper-container">
 <div class="attr button-childlock">
 <p class="attr-title">Child Lock</p>
-<p class="attr-value var-childlock">0</p>
+<p class="attr-value var-childlock">Off</p>
 </div>
 <div class="attr button-angle">
 <p class="attr-title">Angle(&deg;)</p>
@@ -439,7 +558,7 @@ to{transform:perspective(10em) rotateY(40deg)}
 <span class="icon-waper">
 <ha-icon icon="mdi:numeric-0-box-outline"></ha-icon>
 </span>
-Speed Level
+Speed
 </button>
 </div>
 <div class="op var-oscillating">
@@ -458,6 +577,22 @@ Oscillate
 Natural
 </button>
 </div>
+<div class="op var-sleep">
+<button>
+<span class="icon-waper">
+<ha-icon icon="mdi:power-sleep"></ha-icon>
+</span>
+Sleep
+</button>
+</div>
+<div class="op var-led">
+<button>
+<span class="icon-waper">
+<ha-icon icon="mdi:lightbulb-outline"></ha-icon>
+</span>
+LED
+</button>
+</div>
 </div>
 `
         return fanbox
@@ -465,47 +600,71 @@ Natural
 
     // Define UI Parameters
 
-    setUI(fanboxa, {title, natural_speed, direct_speed, state,
+    setUI(fanboxa, {title, natural_speed, direct_speed, raw_speed, state,
         child_lock, oscillating, led_brightness, delay_off_countdown, angle,
-        speed, mode, model
+        speed, mode, model, led
     }) {
         fanboxa.querySelector('.var-title').textContent = title
-        
-        // Child Lock
-        if (child_lock) {
-            fanboxa.querySelector('.var-childlock').textContent = 'On'
-        } else {
-            fanboxa.querySelector('.var-childlock').textContent = 'Off'
-        }
-        fanboxa.querySelector('.button-childlock').classList.remove('loading')
 
-        // Angle
-        fanboxa.querySelector('.var-angle').textContent = angle
-        fanboxa.querySelector('.button-angle').classList.remove('loading')
+        var needSeparatorFlag = false
+        // Child Lock
+        if (this.supportedAttributes.childLock){
+            needSeparatorFlag = true
+            if (child_lock) {
+                fanboxa.querySelector('.var-childlock').textContent = 'On'
+            } else {
+                fanboxa.querySelector('.var-childlock').textContent = 'Off'
+            }
+            fanboxa.querySelector('.button-childlock').classList.remove('loading')
+        } else {
+            fanboxa.querySelector('.button-childlock').style.display = 'none'
+        }
         
+        // Angle
+        if (this.supportedAttributes.angle){
+            if (needSeparatorFlag)
+                fanboxa.querySelector('.button-angle').style.borderLeft = '1px solid #01be9e'
+            needSeparatorFlag = true
+            fanboxa.querySelector('.var-angle').textContent = angle
+            fanboxa.querySelector('.button-angle').classList.remove('loading')
+        } else {
+            fanboxa.querySelector('.button-angle').style.display = 'none'
+        }
 
         // Timer
-        let timer_display = 'Off'
-        if(delay_off_countdown) {
-            let total_mins = delay_off_countdown
-            if (model !== 'dmaker.fan.p5') {
-                total_mins = total_mins / 60
-            }
+        if (this.supportedAttributes.timer) {
+            if (needSeparatorFlag)
+                fanboxa.querySelector('.button-timer').style.borderLeft = '1px solid #01be9e'
+            needSeparatorFlag = true
 
-            let hours = Math.floor(total_mins / 60)
-            let mins = Math.floor(total_mins % 60)
-            if(hours) {
-                if(mins) {
-                    timer_display = `${hours}h ${mins}m`
-                } else {
-                    timer_display = `${hours}h`
+            let timer_display = 'Off'
+            if(delay_off_countdown) {
+                let total_mins = delay_off_countdown
+                
+                if (['dmaker.fan.p15', 'dmaker.fan.p11', 'dmaker.fan.p10', 'dmaker.fan.p9', 'dmaker.fan.p5']
+                    .indexOf(model) === -1) {
+                    total_mins = total_mins / 60
                 }
-            } else {
-                timer_display = `${mins}m`
+
+                let hours = Math.floor(total_mins / 60)
+                let mins = Math.floor(total_mins % 60)
+                if(hours) {
+                    if(mins) {
+                        timer_display = `${hours}h ${mins}m`
+                    } else {
+                        timer_display = `${hours}h`
+                    }
+                } else {
+                    timer_display = `${mins}m`
+                }
             }
+            fanboxa.querySelector('.var-timer').textContent = timer_display
+            fanboxa.querySelector('.button-timer').classList.remove('loading')
+        } else {
+            fanboxa.querySelector('.button-timer').style.display = 'none'
         }
-        fanboxa.querySelector('.var-timer').textContent = timer_display
-        fanboxa.querySelector('.button-timer').classList.remove('loading')
+        if (!needSeparatorFlag)
+            fanboxa.querySelector('.upper-container').style.display = 'none'
 
         // LED
         let activeElement = fanboxa.querySelector('.c3')
@@ -515,6 +674,19 @@ Natural
             }
         } else {
             activeElement.classList.remove('active')
+        }
+        activeElement = fanboxa.querySelector('.var-led')
+        if (this.supportedAttributes.led) {
+            if (led) {
+                if (activeElement.classList.contains('active') === false) {
+                    activeElement.classList.add('active')
+                }
+            } else {
+                activeElement.classList.remove('active')
+            }
+        } else
+        {
+            activeElement.style.display='none'
         }
 
         // Power
@@ -537,17 +709,22 @@ Natural
         } else {
             activeElement.classList.remove('active')
         }
-        // let direct_speed_int = Number(direct_speed)
-        let speedRegexp = /Level (\d)/g
-        let speedRegexpMatch = speedRegexp.exec(speed)
+        //let raw_speed_int = Number(raw_speed)
+        let speedRegexpMatch
         let speedLevel
-        if (speedRegexpMatch && speedRegexpMatch.length > 0) {
-            speedLevel = speedRegexpMatch[1]
-        }
-        if (speedLevel === undefined) {
-            this.error(`Unable to parse speed level: ${speed}`)
-            speedLevel = 1
-            this.error(`Defaulting to ${speedLevel}`)
+        let raw_speed_int = Number(raw_speed)
+        if (!this.config.use_standard_speeds) {
+            let speedRegexp = /Level (\d)/g
+            speedRegexpMatch = speedRegexp.exec(speed)
+            if (speedRegexpMatch && speedRegexpMatch.length > 0) {
+                speedLevel = speedRegexpMatch[1]
+            }
+            if (speedLevel === undefined) {
+                speedLevel = 1
+            }
+        } else {
+            let speedCount = this.supportedAttributes.speedList.length
+            speedLevel = Math.round(raw_speed_int/100*speedCount)
         }
         iconSpan.innerHTML = `<ha-icon icon="mdi:numeric-${speedLevel}-box-outline"></ha-icon>`
         activeElement = fanboxa.querySelector('.fanbox .blades')
@@ -555,25 +732,45 @@ Natural
 
         // Natural mode
         activeElement = fanboxa.querySelector('.var-natural')
-
-         //p5 does not report direct_speed and natural_speed
-        if (model === 'dmaker.fan.p5') {
+        
+         //p* fans do not report direct_speed and natural_speed
+        if (!this.supportedAttributes.natural_speed_reporting && this.supportedAttributes.natural_speed) {
             if (mode === 'nature') {
                 natural_speed = true
             } else if (mode === 'normal') {
                 natural_speed = false
             } else {
-                this.error(`Unrecognized mode for dmaker.fan.p5 when updating natural mode state: ${mode}`)
+                this.error(`Unrecognized mode for ${model} when updating natural mode state: ${mode}`)
                 natural_speed = false
                 this.error(`Defaulting to natural_speed = ${natural_speed}`)
             }
         }
-        if (natural_speed) {
-            if (activeElement.classList.contains('active') === false) {
-                activeElement.classList.add('active')
+        if (this.supportedAttributes.natural_speed) {
+            if (natural_speed) {
+                if (activeElement.classList.contains('active') === false) {
+                    activeElement.classList.add('active')
+                }
+            } else {
+                activeElement.classList.remove('active')
             }
-        } else {
-            activeElement.classList.remove('active')
+        } else
+        {
+            activeElement.style.display='none'
+        }
+
+        // Sleep mode
+        activeElement = fanboxa.querySelector('.var-sleep')
+        if (this.supportedAttributes.sleep_mode) {
+            if (raw_speed_int == 1) {
+                if (activeElement.classList.contains('active') === false) {
+                    activeElement.classList.add('active')
+                }
+            } else {
+                activeElement.classList.remove('active')
+            }
+        } else
+        {
+            activeElement.style.display='none'
         }
 
         // Oscillation
@@ -590,12 +787,25 @@ Natural
             activeElement.classList.remove('active')
             fb.classList.remove('oscillation')
         }
+
+        //Left and Right
+        if (!this.supportedAttributes.rotationAngle) {
+            fanboxa.querySelector('.left').style.display = 'none'
+            fanboxa.querySelector('.right').style.display = 'none'
+        }
+
+        // Fan Animation
+        if (this.config.disable_animation) {
+            fanboxa.querySelector('.fanbox').style.display = 'none'
+            this.card.style.height = '170px'
+        }
+
     }
 /*********************************** UI Settings ************************************/
 
     // Add to logs
     log() {
-        // console.log(...arguments)
+        //console.log(...arguments)
     }
     warn() {
         // console.log(...arguments)
@@ -606,3 +816,132 @@ Natural
 }
 
 customElements.define('fan-xiaomi', FanXiaomi);
+
+const OptionsPlatform = [
+  'xiaomi_miio_fan',
+  'xiaomi_miio_airpurifier',
+];
+
+class ContentCardEditor extends LitElement {
+
+  setConfig(config) {
+    this.config = config;
+  }
+
+  static get properties() {
+      return {
+          hass: {},
+          config: {}
+      };
+  }
+  render() {
+    return html`
+    <div class="card-config">
+    <div class="row">
+    <paper-input
+          label="${this.hass.localize("ui.panel.lovelace.editor.card.generic.title")} (${this.hass.localize("ui.panel.lovelace.editor.card.config.optional")})"
+          .value="${this.config.name}"
+          .configValue="${"name"}"
+          @value-changed="${this._valueChanged}"
+      ></paper-input>
+      </div>
+      <div class="row">
+      <ha-formfield label="Disable animation">
+        <ha-switch
+          .checked=${this.config.disable_animation}
+          .configValue="${'disable_animation'}"
+          @change=${this._valueChanged}
+        ></ha-switch>
+      </ha-formfield>
+      </div>
+      <div class="row">
+      <ha-formfield label="Use HA standard speeds (low/medium/high)">
+        <ha-switch
+          .checked=${this.config.use_standard_speeds}
+          .configValue="${'use_standard_speeds'}"
+          @change=${this._valueChanged}
+        ></ha-switch>
+      </ha-formfield>
+      </div>
+      <div class="row">
+      <ha-formfield label="Show sleep mode button">
+        <ha-switch
+          .checked=${this.config.force_sleep_mode_support}
+          .configValue="${'force_sleep_mode_support'}"
+          @change=${this._valueChanged}
+        ></ha-switch>
+      </ha-formfield>
+      </div>
+      <div class="row">
+      <paper-dropdown-menu
+        label="Platform"
+        .configValue=${'platform'}
+        @value-changed=${this._valueChanged}
+        class="dropdown"
+        >
+        <paper-listbox
+          slot="dropdown-content"
+          .selected=${(Object.values(OptionsPlatform).indexOf(this.config.platform))}
+        >
+          ${(Object.values(OptionsPlatform)).map(item => html` <paper-item>${item}</paper-item> `)}
+        </paper-listbox>
+      </paper-dropdown-menu>
+      </div>
+      <div class="row">
+      <ha-entity-picker
+        .label="${this.hass.localize(
+          "ui.panel.lovelace.editor.card.generic.entity"
+        )} (${this.hass.localize(
+          "ui.panel.lovelace.editor.card.config.required"
+        )})"
+        .hass=${this.hass}
+        .value=${this.config.entity}
+        .configValue=${"entity"}
+        .includeDomains=${includeDomains}
+        @change=${this._valueChanged}
+        allow-custom-entity
+      ></ha-entity-picker>
+      </div>
+    </div>
+    `
+  }
+  _focusEntity(e){
+    e.target.value = ''
+  }
+  
+  _valueChanged(e) {
+    if (!this.config || !this.hass) {
+      return;
+    }
+    const { target } = e;
+    if (target.configValue) {
+      if (target.value === '') {
+        delete this.config[target.configValue];
+      } else {
+        this.config = {
+          ...this.config,
+          [target.configValue]: target.checked !== undefined ? target.checked : target.value,
+        };
+      }
+    }
+    this.configChanged(this.config)
+  }
+
+  configChanged(newConfig) {
+    const event = new Event("config-changed", {
+      bubbles: true,
+      composed: true
+    });
+    event.detail = {config: newConfig};
+    this.dispatchEvent(event);
+  }
+}
+
+customElements.define("content-card-editor", ContentCardEditor);
+window.customCards = window.customCards || [];
+window.customCards.push({
+  type: "fan-xiaomi",
+  name: "Xiaomi Fan Lovelace Card",
+  preview: true,
+  description: "Xiaomi Smartmi Fan Lovelace card for HASS/Home Assistant."
+});

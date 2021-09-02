@@ -1,0 +1,50 @@
+- id: '1611247894614'
+  name: Schlafzimmer Alarm Stop
+  entities:
+    light.schlafzimmer_klein:
+      min_mireds: 153
+      max_mireds: 588
+      effect_list:
+      - Strobe color
+      - Police
+      - Christmas
+      - RGB
+      - Random Loop
+      - Fast Random Loop
+      - LSD
+      - Slowdown
+      - Night Mode
+      - Date Night
+      - Movie
+      - Sunrise
+      - Sunset
+      - Romance
+      - Happy Birthday
+      - Disco
+      - Strobe epilepsy!
+      - Alarm
+      - Police2
+      - WhatsApp
+      - Facebook
+      - Twitter
+      - Home
+      - Candle Flicker
+      - Slow Temp
+      - Stop
+      brightness: 252
+      color_temp: 418
+      hs_color:
+      - 29.174
+      - 76.581
+      rgb_color:
+      - 255
+      - 154
+      - 59
+      xy_color:
+      - 0.559
+      - 0.389
+      effect: Alarm
+      flowing: true
+      friendly_name: 10.10.1.105
+      supported_features: 63
+      state: 'on'

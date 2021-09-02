@@ -1,19 +1,22 @@
 """API Handler for hacs_repositories"""
-import voluptuous as vol
 from homeassistant.components import websocket_api
+import voluptuous as vol
 
 from custom_components.hacs.share import get_hacs
 
 
 @websocket_api.async_response
 @websocket_api.websocket_command({vol.Required("type"): "hacs/repositories"})
-async def hacs_repositories(hass, connection, msg):
+async def hacs_repositories(_hass, connection, msg):
     """Handle get media player cover command."""
     hacs = get_hacs()
     repositories = hacs.repositories
     content = []
     for repo in repositories:
-        if repo.data.category in hacs.common.categories:
+        if (
+            repo.data.category in hacs.common.categories
+            and not repo.ignored_by_country_configuration
+        ):
             data = {
                 "additional_info": repo.information.additional_info,
                 "authors": repo.data.authors,
