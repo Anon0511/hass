@@ -1,8 +1,0 @@
-name: Airpurifier livingroom Mode
-icon: mdi:flattr
-options:
- - auto
- - favorite
- - silent
- - idle
-

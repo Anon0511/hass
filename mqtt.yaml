@@ -1,4 +1,0 @@
-discovery: true
-discovery_prefix: homeassistant
-broker: raspberry
-port: 1883

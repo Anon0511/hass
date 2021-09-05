@@ -1,5 +1,0 @@
-template:
-  - sensor:
-      - name: "schlafzimmer_airpurifier_mode"
-        state: "states('fan.schlafzimmer_airpurifier.attributes.mode')"
-

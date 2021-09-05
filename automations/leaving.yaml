@@ -14,7 +14,7 @@
     - service: light.turn_off
       entity_id: light.wohnzimmer_gross
     - service: light.turn_off
-      entity_id: light.schrankbeleuchtung
+      entity_id: light.wohnzimmer_schrankbeleuchtung
     - service: light.turn_off
       entity_id: light.schlafzimmer_licht
     - service: switch.turn_off

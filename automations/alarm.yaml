@@ -1,13 +1,13 @@
 - alias: Alarm nobody home
   trigger:
     - platform: state
-      entity_id: binary_sensor.eingangsture
+      entity_id: binary_sensor.eingangstuere
       to: 'on'
     - platform: state
       entity_id: binary_sensor.balkon_fenster
       to: 'on'
     - platform: state
-      entity_id: binary_sensor.balkon_ture
+      entity_id: binary_sensor.balkon_tuere
       to: 'on'
   condition:
     - condition: state

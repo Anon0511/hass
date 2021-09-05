@@ -5,4 +5,4 @@
     - light.wohnzimmer_gross
     - light.schlafzimmer_klein
   lights_brightness:
-    - light.schrankbeleuchtung
+    - light.wohnzimmer_schrankbeleuchtung

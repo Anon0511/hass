@@ -10,15 +10,13 @@ breaking_changes:
 bmw_connected_drive: !include bmw.yaml
 circadian_lighting: !include circadian_lighting.yaml
 default_config:
-device_tracker: !include_dir_merge_list devices/
+device_tracker: !include device_tracker.yaml
 discovery: #!include discovery.yaml
-fan: !include_dir_merge_list fans/
 frontend: !include frontend.yaml
 group: !include_dir_merge_named groups/
 hacs: !include hacs.yaml
 http: !include http.yaml
 history:
-#homekit: !include homekit.yaml
 input_boolean: !include_dir_named input_boolean/
 input_number: !include_dir_named input_number/
 input_select: !include_dir_named input_select/
@@ -27,7 +25,6 @@ logger: !include logger.yaml
 map:
 media_player: !include_dir_merge_list mediaplayer/
 mobile_app:
-#mqtt: !include mqtt.yaml
 notify: !include notify.yaml
 person:
 recorder: !include recorder.yaml

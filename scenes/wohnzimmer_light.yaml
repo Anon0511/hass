@@ -1,6 +1,6 @@
 - name: Wohnzimmer normal
   entities:
-    light.schrankbeleuchtung:
+    light.wohnzimmer_schrankbeleuchtung:
       state: on
       brightness: 254
     light.wohnzimmer_gross:
@@ -9,7 +9,7 @@
 
 - name: Wohnzimmer dim
   entities:
-    light.schrankbeleuchtung:
+    light.wohnzimmer_schrankbeleuchtung:
       state: on
       brightness: 126
     light.wohnzimmer_gross:
@@ -18,7 +18,7 @@
 
 - name: Wohnzimmer dark
   entities:
-    light.schrankbeleuchtung:
+    light.wohnzimmer_schrankbeleuchtung:
       state: off
     light.wohnzimmer_gross:
       state: on
@@ -27,6 +27,9 @@
 - name: Wohnzimmer homeoffice
   entities:
     light.wohnzimmer_gross:
+      state: on
+      brightness: 126
+    light.wohnzimmer_schrankbeleuchtung:
       state: on
       brightness: 126
 

@@ -1,0 +1,7 @@
+#- platform: bluetooth_le_tracker
+#  track_new_devices: true
+
+- platform: ping
+  hosts:
+    anon_smartphone: 10.10.0.66
+    avo_smartphone: 10.10.0.63
