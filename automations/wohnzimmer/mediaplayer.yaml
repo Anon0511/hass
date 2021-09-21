@@ -1,4 +1,5 @@
-- alias: Shield starting
+- id: shield_starting
+  alias: Shield starting
   trigger:
     - platform: state
       entity_id: media_player.nvidia_shield

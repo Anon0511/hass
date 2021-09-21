@@ -1,0 +1,6 @@
+persons:
+  name: Personen
+  icon: mdi:account-box
+  entities:
+    - person.anon
+    - person.avo

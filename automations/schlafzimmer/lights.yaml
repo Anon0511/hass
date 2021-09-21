@@ -1,4 +1,5 @@
-- alias: Schlafzimmer Licht an
+- id: bedroom_light_on
+  alias: Bedroom light on
   trigger:
     - platform: state
       entity_id: switch.bett_led
@@ -7,7 +8,8 @@
     - service: light.turn_on
       entity_id: light.schlafzimmer_klein
 
-- alias: Schlafzimmer Licht aus
+- id: bedroom_light_off
+  alias: Bedroom light off
   trigger:
     - platform: state
       entity_id: switch.bett_led

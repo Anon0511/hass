@@ -1,0 +1,26 @@
+- id: lights_turn_on_home_office
+  alias: Lights turn on Home Office
+  trigger:
+    - platform: time
+      at: "08:30:00"
+  condition:
+    - condition: state
+      entity_id: group.persons
+      state: 'home'
+    - condition: numeric_state
+      entity_id: sensor.wohnzimmer_airpurifier_illuminance
+      below: 100
+    - condition: state
+      entity_id: switch.homeoffice
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.workday_sensor
+      state: "on"
+    - condition: state
+      entity_id: switch.holidays
+      state: 'off'
+  action:
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_homeoffice
+    - service: switch.turn_off
+      entity_id: switch.tv_strom

@@ -14,6 +14,6 @@ wohnzimmer:
     - switch.anonpc
     - switch.avopc
     - switch.tv_strom
-    - switch.ladegerat
+    - switch.ladegeraet
     - switch.darkmode
     - switch.lightmode

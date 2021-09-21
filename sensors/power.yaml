@@ -1,0 +1,28 @@
+- platform: integration
+  source: sensor.bett_led_electrical_measurement
+  name: Bett LED kWh
+  unit_prefix: k
+  unit_time: h
+  round: 2
+
+- platform: integration
+  source: sensor.ladegeraet_electrical_measurement
+  name: Wohnzimmer Ladegerät kWh
+  unit_prefix: k
+  unit_time: h
+  round: 2
+
+- platform: integration
+  source: sensor.schlafzimmer_geraete_electrical_measurement
+  name: Schlafzimmer Geräte kWh
+  unit_prefix: k
+  unit_time: h
+  round: 2
+
+- platform: integration
+  source: sensor.tv_strom_electrical_measurement
+  name: TV Strom kWh
+  unit_prefix: k
+  unit_time: h
+  round: 2
+

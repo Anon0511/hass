@@ -1,8 +1,8 @@
-- alias: Lights FireTV paused
+- id: lights_firetv_paused
+  alias: Lights FireTV paused
   trigger:
     - platform: state
       entity_id: media_player.firetv
-      #from: 'playing'
       to: 'paused'
     - platform: state
       entity_id: media_player.firetv
@@ -16,12 +16,12 @@
     service: scene.turn_on
     entity_id: scene.schlafzimmer_normal
 
-- alias: Lights FireTV playing
+- id: lights_firetv_playing
+  alias: Lights FireTV playing
   trigger:
     - platform: state
       entity_id: media_player.firetv
       to: 'playing'
-      #from: 'paused'
   condition:
     - condition: state
       entity_id: light.schlafzimmer_klein

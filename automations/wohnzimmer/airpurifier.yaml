@@ -2,7 +2,8 @@
 # Automatic control
 ################################################################################
 
-- alias: Turn off livingroom airpurifier
+- id: turn_off_livingroom_airpurifier
+  alias: Turn off livingroom airpurifier
   trigger:
     - platform: numeric_state
       entity_id: sensor.wohnzimmer_airpurifier_pm2_5
@@ -18,7 +19,8 @@
     service: fan.turn_off
     entity_id: fan.wohnzimmer_airpurifier
 
-- alias: Turn on livingroom airpurifier
+- id: turn_on_livingroom_airpurifier
+  alias: Turn on livingroom airpurifier
   trigger:
     - platform: numeric_state
       entity_id: sensor.wohnzimmer_airpurifier_pm2_5
@@ -34,7 +36,8 @@
     service: fan.turn_on
     entity_id: fan.wohnzimmer_airpurifier
 
-- alias: Set favorite fan speed for livingroom airpurifier
+- id: set_favorite_fan_speed_for_livingroom_airpurifier
+  alias: Set favorite fan speed for livingroom airpurifier
   trigger:
     - platform: time_pattern
       seconds: '/30'

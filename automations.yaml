@@ -1,0 +1,19 @@
+- id: '1631123221013'
+  alias: Küche Lichtschalter
+  description: Küche Lichtschalter
+  use_blueprint:
+    path: poolcactus/zha-ikea-tradfri-on-off-switch-incl-dimmer.yaml
+    input:
+      remote: 75376296694bf96796d2af9de64e92a0
+      light:
+        device_id: 0828ed00d87534837ec6f71ea0c12a9b
+- id: '1631201346294'
+  alias: Low battery level detection & notification for all battery sensors
+  description: All
+  use_blueprint:
+    path: sbyx/low-battery-level-detection-notification-for-all-battery-sensors.yaml
+    input:
+      actions:
+      - service: notify.notify_telegram_anon
+        data:
+          message: '{{sensors}}'

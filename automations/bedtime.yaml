@@ -1,4 +1,5 @@
-- alias: Bedtime
+- id: bedtime
+  alias: Bedtime
   trigger:
     - platform: state
       entity_id: switch.bett_led
@@ -20,6 +21,9 @@
     - condition: time
       after: '20:00'
       before: '00:00'
+    - condition: state
+      entity_id: media_player.wohnzimmer_tv
+      state: 'off'
   action:
     - service: light.turn_off
       entity_id: light.wohnzimmer_schrankbeleuchtung
@@ -27,22 +31,20 @@
       entity_id: light.wohnzimmer_gross
     - service: media_player.turn_off
       entity_id: media_player.wohnzimmer_tv
-    #- service: media_player.turn_on
-    #  entity_id: media_player.firetv
+    - service: media_player.turn_on
+      entity_id: media_player.firetv
 
-- alias: Turn off bedroom
+- id: turn_off_bedroom
+  alias: Turn off bedroom
   trigger:
     platform: time
     at: '22:45'
   condition:
     - condition: state
-      entity_id: group.family
+      entity_id: group.persons
       state: 'home'
     - condition: state
-      entity_id: switch.guests
-      state: 'off'
-    - condition: state
-      entity_id: switch.bett_led
+      entity_id: light.schlafzimmer_klein
       state: 'on'
   action:
     - service: switch.turn_off

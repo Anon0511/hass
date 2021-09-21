@@ -2,7 +2,8 @@
 # Automatic control
 ################################################################################
 
-- alias: Turn off bedroom airpurifier
+- id: turn_off_bedroom_airpurifier
+  alias: Turn off bedroom airpurifier
   trigger:
     - platform: numeric_state
       entity_id: sensor.schlafzimmer_airpurifier_pm2_5
@@ -18,7 +19,8 @@
     service: fan.turn_off
     entity_id: fan.schlafzimmer_airpurifier
 
-- alias: Turn on bedroom airpurifier
+- id: turn_on_bedroom_airpurifier
+  alias: Turn on bedroom airpurifier
   trigger:
     - platform: numeric_state
       entity_id: sensor.schlafzimmer_airpurifier_pm2_5
@@ -34,7 +36,8 @@
     service: fan.turn_on
     entity_id: fan.schlafzimmer_airpurifier
 
-- alias: Set favorite fan speed for bedroom airpurifier
+- id: set_favorite_fan_speed_for_bedroom_airpurifier
+  alias: Set favorite fan speed for bedroom airpurifier
   trigger:
     - platform: time_pattern
       seconds: '/30'

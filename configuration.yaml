@@ -5,10 +5,12 @@ alarm_control_panel: !include alarm.yaml
 alexa: !include alexa.yaml
 api:
 automation: !include_dir_merge_list automations/
+automation UI: !include automations.yaml
 binary_sensor: !include binary_sensor.yaml
 breaking_changes:
 bmw_connected_drive: !include bmw.yaml
 circadian_lighting: !include circadian_lighting.yaml
+config:
 default_config:
 device_tracker: !include device_tracker.yaml
 discovery: #!include discovery.yaml
@@ -20,6 +22,8 @@ history:
 input_boolean: !include_dir_named input_boolean/
 input_number: !include_dir_named input_number/
 input_select: !include_dir_named input_select/
+input_text: !include input_text.yaml
+intent_script: !include_dir_named intent_scripts/
 logbook:
 logger: !include logger.yaml
 map:
@@ -29,7 +33,7 @@ notify: !include notify.yaml
 person:
 recorder: !include recorder.yaml
 scene: !include_dir_merge_list scenes/
-script: !include_dir_named scripts/
+script: !include_dir_merge_list scripts/
 sensor: !include_dir_merge_list sensors/
 shell_command: !include shell_commands.yaml
 spotify: !include spotify.yaml
@@ -42,5 +46,4 @@ updater:
 wake_on_lan: !include_dir_merge_list wol/
 weather: !include weather.yaml
 webostv: !include webostv.yaml
-yeelight: !include yeelights.yaml
 zone: !include zones.yaml

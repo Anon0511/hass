@@ -1,28 +1,24 @@
-- alias: Nobody home
-  id: nobody_home
+- id: nobody_home
+  alias: Nobody home
   trigger:
-    platform: time_pattern
-    minutes: '/5'
-  condition:
-#    - condition: state
-#      entity_id: group.guests
-#      state: 'not_home'
-    - condition: state
-      entity_id: group.family
-      state: 'not_home'
+    - platform: state
+      entity_id: group.persons
+      to: 'not_home'
+      for:
+        minutes: 5
   action:
     - service: light.turn_off
       entity_id: light.wohnzimmer_gross
     - service: light.turn_off
       entity_id: light.wohnzimmer_schrankbeleuchtung
     - service: light.turn_off
-      entity_id: light.schlafzimmer_licht
+      entity_id: light.schlafzimmer_klein
     - service: switch.turn_off
       entity_id: switch.bett_led
     - service: switch.turn_off
       entity_id: switch.tv_strom
     - service: switch.turn_off
-      entity_id: switch.ladegerat
+      entity_id: switch.ladegeraet
     - service: media_player.turn_off
       entity_id: media_player.wohnzimmer_tv
     - service: media_player.turn_off

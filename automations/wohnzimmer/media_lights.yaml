@@ -1,27 +1,26 @@
-- alias: Lights Shield paused
+- id: lights_shield_paused
+  alias: Lights Shield paused
   trigger:
     - platform: state
       entity_id: media_player.nvidia_shield
-      #from: 'playing'
       to: 'paused'
     - platform: state
       entity_id: media_player.nvidia_shield
-      #from: 'playing'
       to: 'standby'
   condition:
     - condition: state
       entity_id: light.wohnzimmer_gross
       state: 'on'
   action:
-    service: scene.turn_on
-    entity_id: scene.wohnzimmer_normal
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_normal
 
-- alias: Lights Shield playing light
+- id: lights_shield_playing_light
+  alias: Lights Shield playing light
   trigger:
     - platform: state
       entity_id: media_player.nvidia_shield
       to: 'playing'
-      #from: 'paused'
   condition:
     - condition: state
       entity_id: light.wohnzimmer_gross
@@ -30,15 +29,15 @@
       entity_id: switch.lightmode
       state: 'on'
   action:
-    service: scene.turn_on
-    entity_id: scene.wohnzimmer_normal
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_normal
 
-- alias: Lights Shield playing normal
+- id:  lights_shield_playing_normal
+  alias: Lights Shield playing normal
   trigger:
     - platform: state
       entity_id: media_player.nvidia_shield
       to: 'playing'
-      #from: 'paused'
   condition:
     - condition: state
       entity_id: light.wohnzimmer_gross
@@ -50,15 +49,15 @@
       entity_id: switch.darkmode
       state: 'off'
   action:
-    service: scene.turn_on
-    entity_id: scene.wohnzimmer_dim
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_dim
 
-- alias: Lights Shield playing dark
+- id:  lights_shield_playing_dark
+  alias: Lights Shield playing dark
   trigger:
     - platform: state
       entity_id: media_player.nvidia_shield
       to: 'playing'
-      #from: 'paused'
   condition:
     - condition: state
       entity_id: light.wohnzimmer_gross
@@ -67,10 +66,11 @@
       entity_id: switch.darkmode
       state: 'on'
   action:
-    service: scene.turn_on
-    entity_id: scene.wohnzimmer_dark
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_dark
 
-- alias: Lights Media Source not HDMI1 normal
+- id: lights_media_source_not_hdmi1_normal
+  alias: Lights Media Source not HDMI1 normal
   trigger:
     - platform: template
       value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'HDMI 2') }}"
@@ -95,10 +95,11 @@
       entity_id: switch.darkmode
       state: 'off'
   action:
-    service: scene.turn_on
-    entity_id: scene.wohnzimmer_dim
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_dim
 
-- alias: Lights Media Source not HDMI1 normal
+- id: lights_media_source_not_hdmi1_dark
+  alias: Lights Media Source not HDMI1 dark
   trigger:
     - platform: template
       value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'HDMI 2') }}"
@@ -120,10 +121,11 @@
       entity_id: switch.darkmode
       state: 'on'
   action:
-    service: scene.turn_on
-    entity_id: scene.wohnzimmer_dark
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_dark
 
-- alias: Lights Media Source not HDMI1 light
+- id: lights_media_source_not_hdmi1_light
+  alias: Lights Media Source not HDMI1 light
   trigger:
     - platform: template
       value_template: "{{ is_state_attr('media_player.wohnzimmer_tv', 'source', 'HDMI 2') }}"
@@ -145,6 +147,6 @@
       entity_id: switch.lightmode
       state: 'on'
   action:
-    service: scene.turn_on
-    entity_id: scene.wohnzimmer_normal
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_normal
 

@@ -1,0 +1,27 @@
+- id: kitchen_light_turn_on
+  alias: Kitchen light turn on
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.kuche_bewegungsmelder_occupancy
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: group.persons
+      state: 'home'
+    - condition: numeric_state
+      entity_id: sensor.kuche_bewegungsmelder_illuminance
+      below: 8
+  action:
+    service: light.turn_on
+    entity_id: light.kueche_licht
+
+- id: kitchen_light_turn_off
+  alias: Kitchen light turn off
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.kuche_bewegungsmelder_occupancy
+      to: 'off'
+  action:
+    service: light.turn_off
+    entity_id: light.kueche_licht
+

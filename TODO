@@ -1,0 +1,5 @@
+Automations:
+
+- Back Home: Move deivces switch on to room-presence trigger 
+- Schlafzimmer lights: Switch to room-presence
+- Wohnzimmer lights: Switch to room-presence, switch group to persons, add PC scene, switch trigger from every minute to illuminance (?)

@@ -1,37 +1,11 @@
-- alias: Lights turn on Home Office
-  trigger:
-    - platform: time_pattern
-      minutes: '/1'
-  condition:
-    - condition: state
-      entity_id: group.family
-      state: 'home'
-    - condition: time
-      after: '8:30'
-      before: '16:00'
-    - condition: numeric_state
-      entity_id: sensor.wohnzimmer_airpurifier_illuminance
-      below: 100
-    - condition: state
-      entity_id: switch.homeoffice
-      state: 'on'
-    - condition: state
-      entity_id: binary_sensor.workday_sensor
-      state: "on"
-    - condition: state
-      entity_id: switch.holidays
-      state: 'off'
-  action:
-    - service: scene.turn_on
-      entity_id: scene.wohnzimmer_homeoffice
-
-- alias: Lights turn off lights too bright
+- id: lights_turn_off_lights_too_bright
+  alias: Lights turn off lights too bright
   trigger:
     platform: time_pattern
     minutes: '/1'
   condition:
     - condition: state
-      entity_id: group.family
+      entity_id: group.persons
       state: 'home'
     - condition: time
       after: '8:00'
@@ -43,13 +17,14 @@
     - service: light.turn_off
       entity_id: group.wohnzimmer
 
-- alias: Lights turn on too dark TV off
+- id: lights_turn_on_too_dark_tv_off
+  alias: Lights turn on too dark TV off
   trigger:
     - platform: time_pattern
       minutes: '/1'
   condition:
     - condition: state
-      entity_id: group.family
+      entity_id: group.persons
       state: 'home'
     - condition: time
       after: '11:00'
@@ -64,13 +39,14 @@
     - service: scene.turn_on
       entity_id: scene.wohnzimmer_normal
 
-- alias: Light turn on too dark TV on normal
+- id: light_turn_on_too_dark_tv_on_normal
+  alias: Light turn on too dark TV on normal
   trigger:
     - platform: time_pattern
       minutes: '/1'
   condition:
     - condition: state
-      entity_id: group.family
+      entity_id: group.persons
       state: 'home'
     - condition: state
       entity_id: switch.bett_led
@@ -94,13 +70,14 @@
     - service: scene.turn_on
       entity_id: scene.wohnzimmer_dim
 
-- alias: Light turn on too dark TV on dark
+- id: light_turn_on_too_dark_tv_on_dark
+  alias: Light turn on too dark TV on dark
   trigger:
     - platform: time_pattern
       minutes: '/1'
   condition:
     - condition: state
-      entity_id: group.family
+      entity_id: group.persons
       state: 'home'
     - condition: time
       after: '11:00'
@@ -118,13 +95,14 @@
     - service: scene.turn_on
       entity_id: scene.wohnzimmer_dark
 
-- alias: Light turn on too dark TV on light
+- id: light_turn_on_too_dark_tv_on_light
+  alias: Light turn on too dark TV on light
   trigger:
     - platform: time_pattern
       minutes: '/1'
   condition:
     - condition: state
-      entity_id: group.family
+      entity_id: group.persons
       state: 'home'
     - condition: time
       after: '11:00'

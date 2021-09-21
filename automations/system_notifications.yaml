@@ -1,4 +1,5 @@
-- alias: Dismiss Discovery Notification
+- id: dismiss_discovery_notification
+  alias: Dismiss Discovery Notification
   initial_state: true
   trigger:
     platform: event

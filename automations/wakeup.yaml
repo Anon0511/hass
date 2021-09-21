@@ -1,4 +1,5 @@
-- alias: Wakeup
+- id: wakeup
+  alias: Wakeup
   trigger:
     platform: time_pattern
     minutes: '/1'

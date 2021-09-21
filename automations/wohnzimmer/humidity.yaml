@@ -1,4 +1,5 @@
-- alias: Humiditiy too low
+- id: humidity_too_low
+  alias: Humiditiy too low
   trigger:
     - platform: numeric_state
       entity_id: sensor.wohnzimmer_airpurifier_humidity
@@ -17,7 +18,8 @@
     - service: input_boolean.turn_off
       entity_id: input_boolean.humidity
 
-- alias: Humiditiy ok
+- id: humidty_ok
+  alias: Humiditiy ok
   trigger:
     - platform: numeric_state
       entity_id: sensor.wohnzimmer_airpurifier_humidity

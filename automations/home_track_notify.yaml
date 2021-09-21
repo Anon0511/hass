@@ -1,26 +1,37 @@
-- alias: Avo Home
+- id: avo_home
+  alias: Avo Home
   trigger:
     platform: state
     entity_id: person.avo
     from: 'not_home'
     to: 'home'
+  condition:
+    - condition: state
+      entity_id: person.anon
+      state: 'not_home'
   action:
     service: notify.notify_telegram_anon
     data:
-      message: 'Avo ist Zuhause'
+      message: 'Avo is back'
 
-- alias: Avo not Home
+- id: avo_not_home
+  alias: Avo not Home
   trigger:
     platform: state
     entity_id: person.avo
     from: 'home'
     to: 'not_home'
+  condition:
+    - condition: state
+      entity_id: person.anon
+      state: 'not_home'
   action:
     service: notify.notify_telegram_anon
     data:
-      message: 'Avo geht'
+      message: 'Avo is gone'
 
-- alias: Door opened
+- id: door_opened
+  alias: Door opened
   trigger:
     platform: state
     entity_id: binary_sensor.eingangstuere
@@ -35,4 +46,4 @@
   action:
     service: notify.notify_telegram_anon
     data:
-      message: 'Tür geöffnet'
+      message: 'Door opened'

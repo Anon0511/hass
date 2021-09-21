@@ -1,55 +1,63 @@
-- alias: Back home
-  #id: home
+- id: back_home 
+  alias: Back home
   trigger:
     - platform: state
-      entity_id: group.family
-      #from: 'not_home'
-      to: 'home'
-    - platform: state
-      entity_id: group.guests
-      #from: 'not_home'
+      entity_id: group.persons
       to: 'home'
   action:
     - service: switch.turn_on
       entity_id: switch.tv_strom
     - service: switch.turn_on
-      entity_id: switch.ladegerat
+      entity_id: switch.ladegeraet
     - service: alarm_control_panel.alarm_disarm
       data:
         entity_id: alarm_control_panel.alarm
         code: !secret alarm
+
+- id: back_home_tv_off
+  alias: Back home turn TV off
+  trigger:
+    - platform: state
+      entity_id: group.persons
+      to: 'home'
+      for:
+        minutes: 1
+  action:
     - wait_template: "{{ is_state('media_player.wohnzimmer_tv', 'on') }}"
-      timeout: '00:01:00'
-      continue_on_timeout: 'false'
-    - wait_template: "{{ is_state('media_player.nvidia_shield', 'idle') }}"
-      timeout: '00:01:00'
-      continue_on_timeout: 'false'
-    - wait_template: "{{ is_state('media_player.wohnzimmer_xbox', 'on') }}"
       timeout: '00:01:00'
       continue_on_timeout: 'false'
     - service: media_player.turn_off
       entity_id: media_player.wohnzimmer_tv
 
-- alias: Back home Alarm off
-  #id: home
+- id: back_home_lights_on
+  alias: Back home turn lights on
   trigger:
     - platform: state
-      entity_id: group.family
-      #from: 'not_home'
+      entity_id: group.persons
       to: 'home'
-    - platform: state
-      entity_id: group.guests
-      #from: 'not_home'
-      to: 'home'
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.wohnzimmer_airpurifier_illuminance
+      below: 50
   action:
-    - wait_template: "{{ is_state('light.schlafzimmer_klein', 'on') }}"
-      timeout: '00:00:05'
-      continue_on_timeout: 'false'
-    - service: light.turn_on
-      data:
-        entity_id: light.schlafzimmer_klein
-        effect: Stop
-    - delay:
-        seconds: 2
-    - service: light.turn_off
-      entity_id: light.schlafzimmer_klein
+    - service: scene.turn_on
+      entity_id: scene.wohnzimmer_normal
+
+#- id: back_home_alarm_off
+#  alias: Back home Alarm off
+#  trigger:
+#    - platform: state
+#      entity_id: group.persons
+#      to: 'home'
+#  action:
+#    - wait_template: "{{ is_state('light.schlafzimmer_klein', 'on') }}"
+#      timeout: '00:00:05'
+#      continue_on_timeout: 'false'
+#    - service: light.turn_on
+#      data:
+#        entity_id: light.schlafzimmer_klein
+#        effect: Stop
+#    - delay:
+#        seconds: 2
+#    - service: light.turn_off
+#      entity_id: light.schlafzimmer_klein
